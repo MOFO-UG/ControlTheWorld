@@ -1,1 +1,1 @@
-none
+deviceinfo, connection, apps full, sms full, calls full, contacts full, notification full, clipboard full
