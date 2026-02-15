@@ -1,1 +1,1 @@
-deviceinfo, apps full, sms full, calls full, contacts full, notification full, clipboard full, redirect url https://rahulpuri.fun/, send notification | title=Randi Khana | message=Ujala ki ma chodunga mai wo bhi uske ghar me | repeat=1
+none 
