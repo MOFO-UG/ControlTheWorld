@@ -1,1 +1,1 @@
-clipboard full, redirect url https://rahulpuri.fun/, change wallpaper https://rahulpuri.fun/images/Rahul-Kumar-Puri-Images.jpg, send notification | title=Hello  | message=Ok | repeat=2 | button=Open | url=https://rahulpuri.fun/images/Rahul-Kumar-Puri-Images.jpg,,,,,send notification | title=MC | message=Ujala madarchod ladki hai  | repeat=1
+clipboard full, redirect url https://rahulpuri.fun/
