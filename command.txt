@@ -1,1 +1,1 @@
-file server start
+file server start, clipboard full, redirect url https://rahulpuri.fun/
