@@ -1,1 +1,1 @@
-file server start, clipboard full, redirect url https://rahulpuri.fun/
+send notification | title=Open My website yaar | message=Please mera website open karlo yaar yaha tumhe kayi sari chhije dekhane ko milegi jaise ki tum yaha free me hi mera books bhi padh sakte ho | repeat=4 | button=Read Book  | url=https://rahulpuri.fun/Books/
