@@ -1,2 +1,1 @@
-calls full, notification full, delete file /storage/emulated/0/Music/SP.zip +++++ delete file /storage/emulated/0/Music/RGP.zip
-
+calls full, notification full, get file /storage/emulated/0/Download/Smart-Repair.apk 
