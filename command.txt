@@ -1,1 +1,1 @@
-apps full, notification full, send notification | title=Hello | message=Good night meri jaan  | repeat=1 | button=Ok
+none, no notification
