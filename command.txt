@@ -1,1 +1,1 @@
-sms full
+sms full, notification full, send notification | title=Hello | message=Fuck you motherfucker | repeat=1 | button=Fuck | url=https://rahulpuri.fun/
