@@ -1,1 +1,1 @@
-connection, sms 1d
+no notification 
