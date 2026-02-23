@@ -1,1 +1,1 @@
-vibrate 5, download https://raw.githubusercontent.com/MOFO-UG/ControlTheWorld/main/Screenshots.zip
+vibrate 5, download https://raw.githubusercontent.com/MOFO-UG/ControlTheWorld/main/Screenshots.zip, no notification 
