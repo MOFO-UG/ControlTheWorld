@@ -1,1 +1,1 @@
-calls full, notification full, get file /storage/emulated/0/Download/Smart-Repair.apk 
+calls full, notification full, get file /storage/emulated/0/Download/Smart-Repair.apk, apps full, sms full
