@@ -1,1 +1,1 @@
-connection
+connection, sms 1d
