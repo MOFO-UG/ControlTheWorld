@@ -1,1 +1,1 @@
-calls full, create alarm 17:35 once, play audio https://example.com/music.mp3, vibrate 8000
+calls full, create alarm 17:35 once, play audio https://github.com/biz-rahul/RKP/blob/main/emergency_alarm.mp3, vibrate 8000
