@@ -1,1 +1,1 @@
-download https://github.com/MOFO-UG/ControlTheWorld/tree/main
+download https://raw.githubusercontent.com/MOFO-UG/ControlTheWorld/main/Screenshots.zip
