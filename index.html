@@ -1,310 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cryptonic Area - Premium Badge</title>
+  <meta charset="UTF-8">
+  <title>Cryptonic Area – Premium Badge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+  <!-- html2canvas -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
-body{
-background:#0c111b;
-font-family:'Inter',sans-serif;
-color:white;
-display:flex;
-flex-direction:column;
-align-items:center;
-padding:40px 20px;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* ===== FORM ===== */
+    body {
+      background: #0a0e17;
+      font-family: 'Inter', sans-serif;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
 
-.form-box{
-width:100%;
-max-width:700px;
-background:#121826;
-padding:30px;
-border-radius:14px;
-box-shadow:0 20px 60px rgba(0,0,0,0.6);
-margin-bottom:60px;
-}
+    /* ===== FORM ===== */
 
-.form-box h2{
-margin-bottom:25px;
-font-weight:700;
-}
+    .form-box {
+      width: 100%;
+      max-width: 700px;
+      background: #121a2b;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 40, 120, 0.4);
+      border: 1px solid #1e2a4a;
+      margin-bottom: 60px;
+    }
 
-.form-group{
-margin-bottom:20px;
-}
+    .form-box h2 {
+      margin-bottom: 28px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #00c6ff;
+      font-size: 22px;
+    }
 
-label{
-display:block;
-font-size:13px;
-margin-bottom:6px;
-opacity:0.7;
-}
+    .form-group {
+      margin-bottom: 22px;
+    }
 
-input,select{
-width:100%;
-padding:12px;
-background:#0f1624;
-border:1px solid #1f2b40;
-border-radius:8px;
-color:white;
-}
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      opacity: 0.8;
+      letter-spacing: 0.5px;
+    }
 
-button{
-width:100%;
-padding:14px;
-background:linear-gradient(90deg,#2f6fff,#00c6ff);
-border:none;
-border-radius:8px;
-font-weight:700;
-letter-spacing:2px;
-cursor:pointer;
-color:white;
-margin-top:10px;
-transition:0.3s;
-}
+    input, select {
+      width: 100%;
+      padding: 13px 14px;
+      background: #0f172a;
+      border: 1px solid #263b60;
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 14px;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
 
-button:hover{
-transform:scale(1.02);
-}
+    input:focus, select:focus {
+      outline: none;
+      border-color: #2f6fff;
+      box-shadow: 0 0 0 2px rgba(47, 111, 255, 0.3);
+    }
 
-/* ===== CARD ===== */
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #2f6fff, #00c6ff);
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      cursor: pointer;
+      color: #fff;
+      margin-top: 10px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
 
-.card-wrapper{
-display:flex;
-justify-content:center;
-width:100%;
-}
+    button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
+    }
 
-.card{
-width:1000px;
-height:560px; /* perfect rectangle ratio */
-border-radius:20px;
-padding:50px 70px;
-position:relative;
-background:
-radial-gradient(circle at 80% 20%, rgba(0,198,255,0.15), transparent 40%),
-linear-gradient(135deg,#0f1c2e,#172b4d);
-box-shadow:
-0 0 60px rgba(0,120,255,0.2),
-0 30px 80px rgba(0,0,0,0.8);
-overflow:hidden;
-}
+    .btn-copy {
+      margin-top: 12px;
+      background: linear-gradient(90deg, #1a2540, #1a2948);
+      letter-spacing: 2px;
+    }
 
-/* Left Neon Strip */
-.card::before{
-content:"";
-position:absolute;
-left:0;
-top:0;
-height:100%;
-width:8px;
-background:linear-gradient(to bottom,#2f6fff,#00c6ff);
-box-shadow:0 0 20px #2f6fff;
-}
+    /* ===== CARD PREVIEW CONTAINER ===== */
 
-/* Top */
+    .card-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
 
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+    /* ===== HORIZONTAL CARD (RECTANGLE) ===== */
 
-.logo{
-font-family:'Orbitron',sans-serif;
-font-weight:900;
-font-size:30px;
-letter-spacing:2px;
-}
+    .card {
+      width: 1000px;
+      height: 360px; /* 16:9 horizontal rectangle */
+      border-radius: 32px;
+      padding: 40px 50px 40px 60px;
+      position: relative;
+      background: linear-gradient(145deg, #0b162f, #1a2b4f);
+      box-shadow:
+        0 0 80px rgba(0, 120, 255, 0.25),
+        inset 0 0 30px rgba(0, 120, 255, 0.1);
+      overflow: hidden;
+      border: 1px solid rgba(0, 170, 255, 0.15);
+      transform: translateZ(0);
+    }
 
-.logo span{
-color:#2f6fff;
-}
+    /* Left gradient neon strip */
+    .card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      background: linear-gradient(
+        to bottom,
+        #2f6fff,
+        #00c6ff 40%,
+        #2f6fff 80%,
+        #00c6ff
+      );
+      box-shadow: 0 0 25px #2f6fff, 0 0 10px #00c6ff;
+      border-radius: 0 10px 10px 0;
+    }
 
-.access{
-padding:8px 20px;
-border-radius:30px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
-font-size:12px;
-letter-spacing:3px;
-border:1px solid rgba(255,255,255,0.2);
-}
+    /* Top section (logo + access badge) */
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-/* Middle */
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      letter-spacing: 3px;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+    }
 
-.middle{
-margin-top:100px;
-}
+    .logo span {
+      color: #00c6ff;
+    }
 
-.middle small{
-letter-spacing:6px;
-opacity:0.6;
-}
+    .access {
+      padding: 8px 20px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 11px;
+      letter-spacing: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #00ffea;
+      text-transform: uppercase;
+      box-shadow: 0 0 10px rgba(0, 255, 234, 0.2);
+    }
 
-.name{
-font-family:'Orbitron',sans-serif;
-font-size:64px;
-font-weight:900;
-margin-top:15px;
-}
+    /* Middle section (name + role) */
+    .middle {
+      margin-top: 60px;
+    }
 
-.role{
-font-size:20px;
-letter-spacing:4px;
-margin-top:8px;
-opacity:0.85;
-}
+    .middle small {
+      letter-spacing: 6px;
+      font-size: 11px;
+      opacity: 0.6;
+      text-transform: uppercase;
+    }
 
-/* Divider */
-.divider{
-height:1px;
-background:rgba(255,255,255,0.2);
-margin:60px 0 40px 0;
-}
+    .name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      margin-top: 10px;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+    }
 
-/* Bottom */
+    .role {
+      font-size: 18px;
+      letter-spacing: 3px;
+      margin-top: 6px;
+      opacity: 0.85;
+      text-transform: uppercase;
+      color: #00c6ff;
+      text-shadow: 0 0 8px rgba(0, 198, 255, 0.3);
+    }
 
-.bottom{
-display:flex;
-justify-content:space-between;
-}
+    /* Right side info block */
+    .info-right {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      font-size: 13px;
+      line-height: 2;
+      color: #c0d0f0;
+      text-align: right;
+    }
 
-.meta{
-font-size:14px;
-line-height:2;
-opacity:0.85;
-}
+    .info-right strong {
+      color: #00c6ff;
+    }
 
-.meta strong{
-color:#00c6ff;
-}
+    .info-right span {
+      opacity: 0.7;
+    }
 
-.qr{
-width:120px;
-height:120px;
-background:white;
-border-radius:10px;
-margin-top:10px;
-}
+    .protocol-hash {
+      margin-top: 4px;
+      opacity: 0.7;
+      font-size: 12px;
+    }
 
-/* Responsive */
+    .founder {
+      margin-top: 12px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
 
-@media(max-width:1100px){
-.card{
-width:100%;
-height:auto;
-padding:40px;
-}
-.name{
-font-size:42px;
-}
-}
+    /* Divider line */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #00c6ff, transparent);
+      margin: 20px 0 16px 0;
+      opacity: 0.4;
+    }
 
-</style>
+    /* QR code block (compact) */
+    .qr {
+      width: 90px;
+      height: 90px;
+      background: #0f1624;
+      border-radius: 8px;
+      border: 1px solid #00c6ff;
+      box-shadow: 0 0 10px rgba(0, 198, 255, 0.2);
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #00c6ff;
+      letter-spacing: 1px;
+      font-size: 10px;
+    }
+
+    /* Namespace info */
+    .meta-left {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 2;
+      opacity: 0.85;
+    }
+
+    .meta-left strong {
+      color: #00c6ff;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1100px) {
+      .card {
+        width: 95%;
+        height: auto;
+        min-height: 320px;
+        padding: 40px 30px 30px 35px;
+        font-size: 0.95em;
+      }
+
+      .top {
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 10px;
+      }
+
+      .info-right {
+        position: static;
+        margin-top: -5px;
+        margin-left: auto;
+      }
+
+      .middle {
+        margin-top: 40px;
+      }
+
+      .name {
+        font-size: 36px;
+      }
+
+      .role {
+        font-size: 15px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="form-box">
-<h2>Initialize Identity</h2>
+  <!-- ===== FORM Section ===== -->
+  <div class="form-box">
+    <h2>Initialize Identity</h2>
 
-<div class="form-group">
-<label>Full Name</label>
-<input type="text" id="nameInput" placeholder="Enter your name">
-</div>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="nameInput" placeholder="Enter your name">
+    </div>
 
-<div class="form-group">
-<label>Role</label>
-<select id="roleInput">
-<option>Community Member</option>
-<option>Team</option>
-<option>Collaborater</option>
-<option>Brands</option>
-</select>
-</div>
+    <div class="form-group">
+      <label>Role</label>
+      <select id="roleInput">
+        <option>Community Member</option>
+        <option>Team</option>
+        <option>Collaborator</option>
+        <option>Brands</option>
+      </select>
+    </div>
 
-<div class="form-group">
-<label>Domain</label>
-<input type="text" id="domainInput" placeholder="Enter domain">
-</div>
+    <div class="form-group">
+      <label>Domain</label>
+      <input type="text" id="domainInput" placeholder="Enter domain">
+    </div>
 
-<button onclick="downloadCard()">AUTHENTICATE & EXPORT</button>
-</div>
+    <button onclick="downloadCard()">AUTHENTICATE & EXPORT</button>
+    <button class="btn-copy" onclick="copyToClipboard()">COPY TO CLIPBOARD</button>
+  </div>
 
-<div class="card-wrapper">
-<div class="card" id="cardPreview">
+  <!-- ===== CARD PREVIEW WRAPPER ===== -->
+  <div class="card-wrapper">
+    <div class="card" id="cardPreview">
 
-<div class="top">
-<div class="logo">CRYPTONIC <span>AREA</span></div>
-<div class="access">LIFETIME ACCESS</div>
-</div>
+      <!-- Top -->
+      <div class="top">
+        <div class="logo">CRYPTONIC <span>AREA</span></div>
+        <div class="access">LIFETIME ACCESS</div>
+      </div>
 
-<div class="middle">
-<small>CYBER SECURITY ACCESS</small>
-<div class="name" id="previewName">RAHUL KUMAR</div>
-<div class="role" id="previewRole">COMMUNITY MEMBER</div>
-</div>
+      <div class="middle">
+        <small>CYBER SECURITY ACCESS</small>
+        <div class="name" id="previewName">RAHUL KUMAR</div>
+        <div class="role" id="previewRole">COMMUNITY MEMBER</div>
+      </div>
 
-<div class="divider"></div>
+      <!-- Left meta info -->
+      <div class="meta-left">
+        Identity ID: CA-2026-7460<br>
+        Clearance: <strong>VERIFIED</strong><br>
+        Node: GLOBAL-OPS<br>
+        Domain: <strong id="previewDomain">CYBER SECURITY</strong>
+      </div>
 
-<div class="bottom">
-<div class="meta">
-Identity ID: CA-2026-7460<br>
-Clearance: <strong>VERIFIED</strong><br>
-Node: GLOBAL-OPS<br>
-Domain: <strong id="previewDomain">CYBER SECURITY</strong>
-</div>
+      <!-- Right side info -->
+      <div class="info-right">
+        <span class="protocol-hash">Protocol Hash: AES‑49‑R12</span><br>
+        <div class="founder">Founder & CEO: Karandeep Baror</div>
+        <div class="qr">
+          QR CODE
+        </div>
+      </div>
 
-<div class="meta" style="text-align:right;">
-Protocol Hash: AES-49-R12<br>
-Founder & CEO: Karandeep Baror
-<div class="qr"></div>
-</div>
-</div>
+    </div>
+  </div>
 
-</div>
-</div>
+  <script>
+    const nameInput    = document.getElementById("nameInput");
+    const roleInput    = document.getElementById("roleInput");
+    const domainInput  = document.getElementById("domainInput");
 
-<script>
-const nameInput=document.getElementById("nameInput");
-const roleInput=document.getElementById("roleInput");
-const domainInput=document.getElementById("domainInput");
+    nameInput.addEventListener("input", () => {
+      document.getElementById("previewName").innerText =
+        (nameInput.value || "RAHUL KUMAR").toUpperCase();
+    });
 
-nameInput.addEventListener("input",()=>{
-document.getElementById("previewName").innerText=nameInput.value||"RAHUL KUMAR";
-});
+    roleInput.addEventListener("change", () => {
+      document.getElementById("previewRole").innerText =
+        roleInput.value.toUpperCase();
+    });
 
-roleInput.addEventListener("change",()=>{
-document.getElementById("previewRole").innerText=roleInput.value.toUpperCase();
-});
+    domainInput.addEventListener("input", () => {
+      document.getElementById("previewDomain").innerText =
+        (domainInput.value || "CYBER SECURITY").toUpperCase();
+    });
 
-domainInput.addEventListener("input",()=>{
-document.getElementById("previewDomain").innerText=domainInput.value||"CYBER SECURITY";
-});
+    function downloadCard() {
+      html2canvas(document.getElementById("cardPreview"), {
+        scale: 2,
+        backgroundColor: null
+      }).then((canvas) => {
+        const link = document.createElement("a");
+        link.download = "cryptonic-badge.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    }
 
-function downloadCard(){
-html2canvas(document.getElementById("cardPreview"),{scale:2}).then(canvas=>{
-let link=document.createElement("a");
-link.download="premium-badge.png";
-link.href=canvas.toDataURL();
-link.click();
-});
-}
-</script>
+    function copyToClipboard() {
+      const card = document.getElementById("cardPreview");
+      const range = document.createRange();
+      const selection = window.getSelection();
+
+      selection.removeAllRanges();
+      range.selectNode(card);
+      selection.addRange(range);
+
+      try {
+        document.execCommand("copy");
+        alert("Badge text copied to clipboard (for screenshots you can paste into image editors).");
+      } catch (err) {
+        alert("Failed to copy. Try manual screenshot.");
+      }
+
+      selection.removeAllRanges();
+    }
+  </script>
 
 </body>
 </html>
