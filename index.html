@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cryptonic Area - Secure Badge Generator</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
@@ -13,168 +13,200 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: 'Inter', sans-serif;
+    font-family:'Inter',sans-serif;
 }
 
 body{
-    background: #f4f6fa;
-    color:#1a1a1a;
+    background:#f3f5f9;
 }
 
 header{
     display:flex;
     justify-content:space-between;
     padding:20px 8%;
-    background:white;
-    box-shadow:0 2px 10px rgba(0,0,0,0.05);
-}
-
-header h2{
-    font-weight:800;
-}
-
-.online{
-    color:green;
-    font-weight:600;
+    background:#fff;
+    box-shadow:0 3px 15px rgba(0,0,0,0.05);
 }
 
 .hero{
     text-align:center;
-    padding:40px 10px;
+    padding:40px 0;
 }
 
 .hero h1{
-    font-size:42px;
-    font-weight:800;
+    font-size:40px;
+    font-weight:900;
 }
 
 .hero span{
-    color:#1e60ff;
+    color:#2f6fff;
 }
 
 .container{
     width:90%;
-    max-width:1000px;
+    max-width:1100px;
     margin:auto;
 }
 
 .form-box{
-    background:white;
+    background:#fff;
     padding:30px;
-    border-radius:15px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.form-box h3{
-    margin-bottom:20px;
-    color:#1e60ff;
+    border-radius:12px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.05);
+    margin-bottom:50px;
 }
 
 .form-group{
-    margin-bottom:20px;
+    margin-bottom:18px;
 }
 
 label{
-    font-size:14px;
+    font-size:13px;
     font-weight:600;
+    margin-bottom:6px;
     display:block;
-    margin-bottom:8px;
 }
 
-input, select{
+input,select{
     width:100%;
     padding:12px;
     border-radius:8px;
     border:1px solid #ddd;
-    font-size:14px;
 }
 
 button{
     width:100%;
     padding:14px;
-    background:#1e60ff;
-    color:white;
+    background:#2f6fff;
+    color:#fff;
+    font-weight:700;
     border:none;
     border-radius:8px;
-    font-weight:700;
-    letter-spacing:2px;
     cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    background:#1247cc;
-}
-
-.preview-section{
-    margin-top:50px;
-    display:flex;
-    justify-content:center;
-}
-
-.card{
-    width:800px;
-    height:350px;
-    background:linear-gradient(135deg,#0d1b2a,#1b263b);
-    color:white;
-    border-radius:15px;
-    padding:30px;
-    position:relative;
-    overflow:hidden;
-}
-
-.card h2{
-    font-size:32px;
-    font-weight:800;
-    margin-top:40px;
-}
-
-.card .subtitle{
-    font-size:14px;
-    letter-spacing:2px;
-    opacity:0.7;
-}
-
-.card .role{
-    margin-top:10px;
-    font-weight:600;
     letter-spacing:1px;
 }
 
-.card .footer{
+.preview-wrapper{
+    display:flex;
+    justify-content:center;
+    margin-bottom:80px;
+}
+
+/* CARD DESIGN */
+
+.card{
+    width:900px;
+    height:380px;
+    background:linear-gradient(135deg,#0e1a2b,#1c2d48);
+    border-radius:18px;
+    position:relative;
+    color:#fff;
+    overflow:hidden;
+    padding:40px 50px;
+}
+
+/* Left Accent */
+.card::before{
+    content:"";
     position:absolute;
-    bottom:20px;
-    left:30px;
+    left:0;
+    top:0;
+    height:100%;
+    width:6px;
+    background:#2f6fff;
+}
+
+/* Top Section */
+.top-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand{
+    font-weight:800;
+    font-size:24px;
+}
+
+.brand span{
+    color:#2f6fff;
+}
+
+.access-badge{
+    border:1px solid rgba(255,255,255,0.4);
+    padding:6px 18px;
+    border-radius:20px;
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+/* Middle Section */
+
+.middle{
+    margin-top:50px;
+}
+
+.middle small{
+    letter-spacing:4px;
     font-size:12px;
     opacity:0.7;
 }
 
-.badge{
-    position:absolute;
-    top:20px;
-    right:20px;
-    background:white;
-    color:black;
-    padding:5px 12px;
-    font-size:12px;
-    font-weight:700;
-    border-radius:20px;
+.name{
+    font-size:48px;
+    font-weight:900;
+    margin-top:10px;
 }
 
-.details{
-    position:absolute;
-    bottom:20px;
-    right:30px;
-    font-size:12px;
+.role{
+    font-size:18px;
+    letter-spacing:3px;
+    margin-top:5px;
+    opacity:0.85;
+}
+
+/* Divider */
+.divider{
+    margin:35px 0;
+    height:1px;
+    background:rgba(255,255,255,0.2);
+}
+
+/* Bottom Section */
+.bottom{
+    display:flex;
+    justify-content:space-between;
+}
+
+/* Left metadata */
+.meta-left{
+    font-size:13px;
+    line-height:1.9;
+    opacity:0.85;
+}
+
+/* Right metadata */
+.meta-right{
     text-align:right;
-    opacity:0.8;
+    font-size:13px;
+    line-height:1.9;
+    opacity:0.85;
 }
 
-@media(max-width:900px){
+/* QR Placeholder */
+.qr{
+    width:90px;
+    height:90px;
+    background:#fff;
+    border-radius:8px;
+    margin-top:10px;
+}
+
+@media(max-width:1000px){
     .card{
         width:100%;
         height:auto;
-        padding:20px;
+        padding:25px;
     }
 }
 </style>
@@ -183,23 +215,21 @@ button:hover{
 <body>
 
 <header>
-    <h2>CRYPTONIC AREA</h2>
-    <div class="online">● ONLINE</div>
+    <h3>CRYPTONIC AREA</h3>
+    <div style="color:green;font-weight:600;">● ONLINE</div>
 </header>
 
 <section class="hero">
-    <p>IDENTITY ACCESS</p>
     <h1>SECURE BADGE <span>GENERATOR</span></h1>
 </section>
 
 <div class="container">
 
 <div class="form-box">
-    <h3>INITIALIZE INPUT</h3>
 
     <div class="form-group">
         <label>Full Legal Name</label>
-        <input type="text" id="nameInput" placeholder="Enter your name">
+        <input type="text" id="nameInput" placeholder="Enter name">
     </div>
 
     <div class="form-group">
@@ -218,59 +248,70 @@ button:hover{
     </div>
 
     <button onclick="downloadCard()">AUTHENTICATE & EXPORT</button>
+
 </div>
 
-<div class="preview-section">
-    <div class="card" id="cardPreview">
-        <div class="badge">LIFETIME ACCESS</div>
-        <div class="subtitle">CYBER SECURITY ACCESS</div>
+<div class="preview-wrapper">
+<div class="card" id="cardPreview">
 
-        <h2 id="previewName">RAHUL KUMAR</h2>
+    <div class="top-bar">
+        <div class="brand">CRYPTONIC <span>AREA</span></div>
+        <div class="access-badge">LIFETIME ACCESS</div>
+    </div>
+
+    <div class="middle">
+        <small>CYBER SECURITY ACCESS</small>
+        <div class="name" id="previewName">RAHUL KUMAR</div>
         <div class="role" id="previewRole">COMMUNITY MEMBER</div>
+    </div>
 
-        <div class="footer">
+    <div class="divider"></div>
+
+    <div class="bottom">
+        <div class="meta-left">
             IDENTITY ID: CA-2026-7460 <br>
             CLEARANCE: VERIFIED <br>
-            NODE: GLOBAL-OPS
-        </div>
-
-        <div class="details">
-            PROTOCOL HASH: AES-49-R12 <br>
-            FOUNDER & CEO: KARANDEEP BAROR <br>
+            NODE: GLOBAL-OPS <br>
             DOMAIN: <span id="previewDomain">CYBER SECURITY</span>
         </div>
+
+        <div class="meta-right">
+            PROTOCOL HASH: AES-49-R12 <br>
+            FOUNDER & CEO: KARANDEEP BAROR
+            <div class="qr"></div>
+        </div>
     </div>
+
+</div>
 </div>
 
 </div>
 
 <script>
-
-const nameInput = document.getElementById("nameInput");
-const roleInput = document.getElementById("roleInput");
-const domainInput = document.getElementById("domainInput");
+const nameInput=document.getElementById("nameInput");
+const roleInput=document.getElementById("roleInput");
+const domainInput=document.getElementById("domainInput");
 
 nameInput.addEventListener("input",()=>{
-    document.getElementById("previewName").innerText = nameInput.value || "RAHUL KUMAR";
+    document.getElementById("previewName").innerText=nameInput.value||"RAHUL KUMAR";
 });
 
 roleInput.addEventListener("change",()=>{
-    document.getElementById("previewRole").innerText = roleInput.value.toUpperCase();
+    document.getElementById("previewRole").innerText=roleInput.value.toUpperCase();
 });
 
 domainInput.addEventListener("input",()=>{
-    document.getElementById("previewDomain").innerText = domainInput.value || "CYBER SECURITY";
+    document.getElementById("previewDomain").innerText=domainInput.value||"CYBER SECURITY";
 });
 
 function downloadCard(){
     html2canvas(document.getElementById("cardPreview")).then(canvas=>{
-        let link = document.createElement("a");
-        link.download = "secure-badge.png";
-        link.href = canvas.toDataURL();
+        let link=document.createElement("a");
+        link.download="secure-badge.png";
+        link.href=canvas.toDataURL();
         link.click();
     });
 }
-
 </script>
 
 </body>
