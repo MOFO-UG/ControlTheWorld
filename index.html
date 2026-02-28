@@ -1,430 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cryptonic Area | Official Identity Vault</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cryptonic Area - Secure Badge Generator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
 <style>
-    :root { --accent: #3b82f6; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Inter', sans-serif;
+}
 
-    /* ----------------------------------------------------
-       GLOBAL STABILIZATION (CANVAS SAFE)
-    -----------------------------------------------------*/
-    *, *::before, *::after {
-        box-sizing: border-box;
+body{
+    background: #f4f6fa;
+    color:#1a1a1a;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    padding:20px 8%;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+header h2{
+    font-weight:800;
+}
+
+.online{
+    color:green;
+    font-weight:600;
+}
+
+.hero{
+    text-align:center;
+    padding:40px 10px;
+}
+
+.hero h1{
+    font-size:42px;
+    font-weight:800;
+}
+
+.hero span{
+    color:#1e60ff;
+}
+
+.container{
+    width:90%;
+    max-width:1000px;
+    margin:auto;
+}
+
+.form-box{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.form-box h3{
+    margin-bottom:20px;
+    color:#1e60ff;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+label{
+    font-size:14px;
+    font-weight:600;
+    display:block;
+    margin-bottom:8px;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    font-size:14px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    background:#1e60ff;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-weight:700;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#1247cc;
+}
+
+.preview-section{
+    margin-top:50px;
+    display:flex;
+    justify-content:center;
+}
+
+.card{
+    width:800px;
+    height:350px;
+    background:linear-gradient(135deg,#0d1b2a,#1b263b);
+    color:white;
+    border-radius:15px;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+}
+
+.card h2{
+    font-size:32px;
+    font-weight:800;
+    margin-top:40px;
+}
+
+.card .subtitle{
+    font-size:14px;
+    letter-spacing:2px;
+    opacity:0.7;
+}
+
+.card .role{
+    margin-top:10px;
+    font-weight:600;
+    letter-spacing:1px;
+}
+
+.card .footer{
+    position:absolute;
+    bottom:20px;
+    left:30px;
+    font-size:12px;
+    opacity:0.7;
+}
+
+.badge{
+    position:absolute;
+    top:20px;
+    right:20px;
+    background:white;
+    color:black;
+    padding:5px 12px;
+    font-size:12px;
+    font-weight:700;
+    border-radius:20px;
+}
+
+.details{
+    position:absolute;
+    bottom:20px;
+    right:30px;
+    font-size:12px;
+    text-align:right;
+    opacity:0.8;
+}
+
+@media(max-width:900px){
+    .card{
+        width:100%;
+        height:auto;
+        padding:20px;
     }
-
-    body {
-        background-color: #f8fafc;
-        font-family: 'Inter', sans-serif;
-        scroll-behavior: smooth;
-        overflow-x: hidden;
-
-        /* Rendering stability */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: geometricPrecision;
-    }
-
-    .mono {
-        font-family: 'JetBrains Mono', monospace;
-    }
-
-    .terminal-grid {
-        background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
-        background-size: 35px 35px;
-    }
-
-    /* ----------------------------------------------------
-       CARD DESIGN - HARD LOCKED LAYOUT
-    -----------------------------------------------------*/
-    #member-card {
-        width: 800px;
-        height: 480px;
-        min-width: 800px;
-        min-height: 480px;
-
-        background: linear-gradient(
-            135deg,
-            #111827 0%,
-            #1e293b 50%,
-            #0f172a 100%
-        );
-
-        color: white;
-        position: relative;
-        overflow: hidden;
-        border: 1px solid #334155;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        /* Critical for export stability */
-        line-height: 1;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-    }
-
-    /* Force deterministic line-height inside card */
-    #member-card * {
-        line-height: 1;
-    }
-
-    .cyber-bg {
-        position: absolute;
-        inset: 0;
-        background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-        opacity: 0.5;
-        pointer-events: none;
-    }
-
-    .side-glow {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 4px;
-        height: 100%;
-        background: #3b82f6;
-        box-shadow: 2px 0 25px rgba(59, 130, 246, 0.4);
-    }
-
-    /* ----------------------------------------------------
-       LIFETIME ACCESS BADGE (PIXEL LOCKED)
-    -----------------------------------------------------*/
-    .badge-premium {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-        height: 26px;          /* fixed height */
-        padding: 0 14px;       /* no vertical padding */
-
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-
-        color: #ffffff;
-        font-size: 10px;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-
-        line-height: 26px;     /* equal to height */
-        white-space: nowrap;
-    }
-
-    /* ----------------------------------------------------
-       PREVIEW WRAPPER (SAFE SCALING)
-    -----------------------------------------------------*/
-    .preview-wrapper {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        padding: 10px 0;
-    }
-
-    .scaled-card {
-        transform: scale(0.6);
-        transform-origin: center center;
-        will-change: transform;
-    }
-
-    @media (min-width: 1024px) {
-        .scaled-card {
-            transform: scale(0.85);
-        }
-    }
-
-    @media (min-width: 1280px) {
-        .scaled-card {
-            transform: scale(0.95);
-        }
-    }
-
-    /* ----------------------------------------------------
-       NAVBAR GLASS EFFECT
-    -----------------------------------------------------*/
-    .glass-nav {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid #e2e8f0;
-    }
-
-    /* ----------------------------------------------------
-       STAT BOXES
-    -----------------------------------------------------*/
-    .stat-box {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-left: 4px solid #3b82f6;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-    }
-
-    .stat-box:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.1);
-    }
-
-    /* ----------------------------------------------------
-       FLOAT BUTTON
-    -----------------------------------------------------*/
-    .whatsapp-float {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        z-index: 100;
-        transition: transform 0.3s;
-    }
-
+}
 </style>
 </head>
-<body class="terminal-grid min-h-screen">
 
-    <a href="#" class="whatsapp-float bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-2xl">
-        <i class="fab fa-whatsapp text-2xl"></i>
-    </a>
+<body>
 
-    <nav class="glass-nav sticky top-0 z-50 px-4 md:px-10 py-3 w-full">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <img src="assets/cryptonicarea.jpg" class="w-8 h-8 rounded shadow-sm" alt="Logo">
-                <div>
-                    <h1 class="font-black text-slate-900 tracking-tighter leading-none text-sm md:text-base">CRYPTONIC AREA</h1>
-                    <span class="mono text-[7px] text-blue-600 font-bold tracking-widest uppercase italic leading-none">Alpha-1 Node</span>
-                </div>
-            </div>
-            <div class="flex items-center gap-6 mono text-[9px] font-bold text-slate-500 uppercase tracking-widest">
-                <div class="flex items-center gap-2 text-green-500">
-                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> ONLINE
-                </div>
-            </div>
-        </div>
-    </nav>
+<header>
+    <h2>CRYPTONIC AREA</h2>
+    <div class="online">● ONLINE</div>
+</header>
 
-    <main class="max-w-6xl mx-auto px-4 md:px-8 pt-8 pb-20">
-        
-        <div class="text-center mb-10">
-            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[9px] font-black tracking-widest mb-3 uppercase">Identity Access</span>
-            <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase mb-2">Secure Badge <span class="text-blue-600">Generator</span></h2>
-        </div>
+<section class="hero">
+    <p>IDENTITY ACCESS</p>
+    <h1>SECURE BADGE <span>GENERATOR</span></h1>
+</section>
 
-        <div class="grid lg:grid-cols-2 gap-10 items-center">
-            
-            <section class="bg-white p-6 md:p-8 border border-slate-200 shadow-xl rounded-2xl w-full">
-                <h3 class="mono text-[10px] font-black text-blue-600 mb-6 uppercase tracking-[0.3em]">> Initialize_Input</h3>
-                <div class="space-y-4">
-                    <div>
-                        <label class="mono text-[9px] font-bold uppercase text-slate-400 mb-1.5 block">Full Legal Name</label>
-                        <input type="text" id="inName" oninput="updateCard()" placeholder="RAHUL SHARMA" class="w-full p-3.5 border border-slate-100 bg-slate-50 outline-none focus:border-blue-600 font-black text-slate-900 uppercase text-sm">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="mono text-[9px] font-bold uppercase text-slate-400 mb-1.5 block">Role</label>
-                            <select id="inRole" onchange="updateCard()" class="w-full p-3.5 border border-slate-100 bg-slate-50 font-black text-slate-900 outline-none text-sm">
-                                <option value="COMMUNITY MEMBER">COMMUNITY MEMBER</option>
-                                <option value="STUDENT AMBASSADOR">STUDENT AMBASSADOR</option>
-                                <option value="RESEARCH INTERN"> INTERNSHIP STUDENT</option>
-                                <option value="CORE TEAM">CORE TEAM</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="mono text-[9px] font-bold uppercase text-slate-400 mb-1.5 block">Domain</label>
-                            <input type="text" id="inDomain" oninput="updateCard()" placeholder="Cyber Security" class="w-full p-3.5 border border-slate-100 bg-slate-50 font-black text-slate-900 outline-none uppercase text-sm">
-                        </div>
-                    </div>
-                    <button id="exportBtn" class="w-full bg-slate-900 text-white py-4.5 mt-2 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-blue-600 transition-all flex items-center justify-center gap-3 shadow-lg">
-    <span>AUTHENTICATE & EXPORT</span>
-    <i class="fas fa-shield-alt"></i>
-                    </button>
-                </div>
-            </section>
+<div class="container">
 
-            <section class="w-full overflow-hidden flex flex-col items-center">
-                <div class="preview-wrapper">
-                    <div id="member-card" class="scaled-card rounded-sm shadow-2xl">
-                        <div class="cyber-bg"></div>
-                        <div class="side-glow"></div>
-                        <div class="p-12 h-full flex flex-col justify-between relative z-10">
-                            <div class="flex justify-between items-start">
-                                <div class="flex items-center gap-6">
-                                    <img src="assets/cryptonicarea.jpg" class="w-16 h-16 rounded shadow-lg border border-white/10" alt="Logo">
-                                    <div>
-                                        <h2 class="text-2xl font-black tracking-tighter italic uppercase leading-none">CRYPTONIC <span class="text-blue-500">AREA</span></h2>
-                                        <p class="mono text-[9px] text-slate-300 font-bold tracking-[0.4em] uppercase mt-2">Empowering the digital defenders</p>
-                                    </div>
-                                </div>
-                                <div class="badge-premium">LIFETIME ACCESS</div>
-                            </div>
-                            <div class="relative">
-                                <div class="absolute -left-12 top-1/2 -translate-y-1/2 w-1.5 h-20 bg-blue-500"></div>
-                                <div class="flex items-center gap-3 mb-2">
-                                    <p id="cardDomain" class="mono text-[10px] font-bold text-blue-300 uppercase tracking-[0.3em]">CYBER_SECURITY</p>
-                                    <span class="h-[1px] flex-grow bg-white/20"></span>
-                                </div>
-                                <h3 id="cardName" class="text-5xl font-black uppercase italic tracking-tighter text-white">YOUR IDENTITY</h3>
-                                <p id="cardRole" class="mono text-[14px] text-blue-100 font-bold uppercase mt-2 tracking-[0.2em]">CORE TEAM</p>
-                            </div>
-                            <div class="border-t border-white/10 pt-8 flex justify-between items-end">
-                                <div class="grid grid-cols-2 gap-x-16 gap-y-4">
-                                    <div><p class="text-[8px] text-slate-400 font-black uppercase mb-1">Identity ID</p><p id="cardUID" class="mono text-[12px] font-black text-white uppercase">CA-2026-XXXX</p></div>
-                                    <div><p class="text-[8px] text-slate-400 font-black uppercase mb-1">Protocol Hash</p><p id="cardVer" class="mono text-[12px] font-black text-blue-300 uppercase">AES-00-T0</p></div>
-                                    <div><p class="text-[8px] text-slate-400 font-black uppercase mb-1">Clearance</p><p class="mono text-[10px] font-bold text-white uppercase italic">Verified</p></div>
-                                    <div><p class="text-[8px] text-slate-400 font-black uppercase mb-1">Node</p><p class="mono text-[9px] font-bold text-blue-300 uppercase italic">GLOBAL-OPS</p></div>
-                                </div>
-                                <div class="flex items-center gap-8">
-                                    <div class="text-right border-r border-white/10 pr-6">
-                                        <p class="text-[7px] font-black text-blue-400 uppercase tracking-widest mb-1">FOUNDER & CEO</p>
-                                        <p class="text-[11px] font-black text-white italic tracking-tighter uppercase">Karndeep Baror</p>
-                                    </div>
-                                    <div class="flex flex-col items-center gap-1">
-                                        <p class="text-[6px] mono text-white/40 uppercase tracking-widest">[ Scan to Verify ]</p>
-                                        <div class="bg-white p-1 rounded-sm shadow-xl"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://cryptonicarea.com" class="w-12 h-12 grayscale" alt="QR"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="absolute bottom-4 left-0 w-full text-center text-[7px] mono text-white/20 uppercase tracking-[0.2em]">Digitally issued by Cryptonic Area Global Operations | cryptonicarea@gmail.com</p>
-                    </div>
-                </div>
-            </section>
+<div class="form-box">
+    <h3>INITIALIZE INPUT</h3>
+
+    <div class="form-group">
+        <label>Full Legal Name</label>
+        <input type="text" id="nameInput" placeholder="Enter your name">
+    </div>
+
+    <div class="form-group">
+        <label>Role</label>
+        <select id="roleInput">
+            <option>Community Member</option>
+            <option>Team</option>
+            <option>Collaborater</option>
+            <option>Brands</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Domain</label>
+        <input type="text" id="domainInput" placeholder="Enter domain">
+    </div>
+
+    <button onclick="downloadCard()">AUTHENTICATE & EXPORT</button>
+</div>
+
+<div class="preview-section">
+    <div class="card" id="cardPreview">
+        <div class="badge">LIFETIME ACCESS</div>
+        <div class="subtitle">CYBER SECURITY ACCESS</div>
+
+        <h2 id="previewName">RAHUL KUMAR</h2>
+        <div class="role" id="previewRole">COMMUNITY MEMBER</div>
+
+        <div class="footer">
+            IDENTITY ID: CA-2026-7460 <br>
+            CLEARANCE: VERIFIED <br>
+            NODE: GLOBAL-OPS
         </div>
 
-        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-            <div class="stat-box p-6 rounded-xl">
-                <h4 class="mono text-[9px] font-black text-slate-400 uppercase mb-2 tracking-widest">Global Network</h4>
-                <p class="text-2xl font-black text-slate-900 tracking-tighter uppercase">1000+ Members</p>
-            </div>
-            <div class="stat-box p-6 rounded-xl">
-                <h4 class="mono text-[9px] font-black text-slate-400 uppercase mb-2 tracking-widest">Industry Domain</h4>
-                <p class="text-2xl font-black text-slate-900 tracking-tighter uppercase">Industrial Tech</p>
-            </div>
-            <div class="stat-box p-6 rounded-xl">
-                <h4 class="mono text-[9px] font-black text-slate-400 uppercase mb-2 tracking-widest">Security Protocol</h4>
-                <p class="text-2xl font-black text-slate-900 tracking-tighter uppercase">AES-256 Bit</p>
-            </div>
+        <div class="details">
+            PROTOCOL HASH: AES-49-R12 <br>
+            FOUNDER & CEO: KARANDEEP BAROR <br>
+            DOMAIN: <span id="previewDomain">CYBER SECURITY</span>
         </div>
-    </main>
+    </div>
+</div>
 
-    <footer class="bg-slate-900 text-white pt-16 pb-8 w-full">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-4 gap-10 mb-12">
-            <div class="col-span-1 md:col-span-2">
-                <div class="flex items-center gap-3 mb-4">
-                    <img src="assets/cryptonicarea.jpg" class="w-10 h-10 rounded border border-white/10" alt="Logo">
-                    <h2 class="text-2xl font-black tracking-tighter uppercase italic text-white">CRYPTONIC <span class="text-blue-500">AREA</span></h2>
-                </div>
-                <p class="text-slate-400 text-xs max-w-sm">The leading edge of industrial technology and cyber intelligence.</p>
-            </div>
-            <div>
-                <h4 class="mono text-[10px] font-black text-blue-500 uppercase tracking-widest mb-4">Resources</h4>
-                <ul class="space-y-2.5 text-slate-400 text-[11px]">
-                    <li><a href="#" class="hover:text-white transition-colors underline-offset-4 hover:underline">Privacy Protocol</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors underline-offset-4 hover:underline">Verify Badge</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="mono text-[10px] font-black text-blue-500 uppercase tracking-widest mb-4">Contact Node</h4>
-                <ul class="space-y-2.5 text-slate-400 text-[11px]">
-                    <li><i class="fas fa-envelope text-blue-500 mr-2"></i> cryptonicarea@gmail.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-6xl mx-auto px-6 border-t border-slate-800 pt-8 text-center">
-            <p class="mono text-[9px] text-slate-500 tracking-[0.4em] uppercase">© 2026 Cryptonic Area. All Operational Rights Reserved.</p>
-        </div>
-    </footer>
+</div>
+
 <script>
-function generateSpecialCodes(name) {
-    let hash = 0;
-    const str = name || "DEFAULT";
 
-    for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
+const nameInput = document.getElementById("nameInput");
+const roleInput = document.getElementById("roleInput");
+const domainInput = document.getElementById("domainInput");
 
-    const uidSuffix = Math.abs(hash % 10000)
-        .toString()
-        .padStart(4, '0');
-
-    const verCode =
-        Math.abs(hash % 99).toString() +
-        "-" +
-        str.charAt(0).toUpperCase() +
-        str.length.toString();
-
-    return {
-        uid: `CA-2026-${uidSuffix}`,
-        ver: `AES-${verCode}`
-    };
-}
-
-function updateCard() {
-    const name = document.getElementById('inName').value;
-    const role = document.getElementById('inRole').value;
-    const domain = document.getElementById('inDomain').value;
-
-    const codes = generateSpecialCodes(name);
-
-    document.getElementById('cardName').innerText =
-        name || "YOUR IDENTITY";
-
-    document.getElementById('cardRole').innerText = role;
-
-    document.getElementById('cardDomain').innerText =
-        (domain || "CYBER") + "_ACCESS";
-
-    document.getElementById('cardUID').innerText = codes.uid;
-    document.getElementById('cardVer').innerText = codes.ver;
-}
-
-document.getElementById("exportBtn")
-.addEventListener("click", async function () {
-
-    const card = document.getElementById("member-card");
-    const btn = this;
-
-    btn.innerText = "RENDERING...";
-    btn.disabled = true;
-
-    try {
-        await document.fonts.ready;
-
-        const canvas = await html2canvas(card, {
-            scale: 2,
-            useCORS: true
-        });
-
-        const link = document.createElement("a");
-        link.download = "Cryptonic-Card.png";
-        link.href = canvas.toDataURL("image/png");
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        btn.innerText = "EXPORT SUCCESS";
-
-    } catch (err) {
-        console.error(err);
-        btn.innerText = "EXPORT FAILED";
-    }
-
-    setTimeout(() => {
-        btn.innerHTML = `
-            <span>AUTHENTICATE & EXPORT</span>
-            <i class="fas fa-shield-alt"></i>
-        `;
-        btn.disabled = false;
-    }, 2000);
+nameInput.addEventListener("input",()=>{
+    document.getElementById("previewName").innerText = nameInput.value || "RAHUL KUMAR";
 });
 
-updateCard();
+roleInput.addEventListener("change",()=>{
+    document.getElementById("previewRole").innerText = roleInput.value.toUpperCase();
+});
+
+domainInput.addEventListener("input",()=>{
+    document.getElementById("previewDomain").innerText = domainInput.value || "CYBER SECURITY";
+});
+
+function downloadCard(){
+    html2canvas(document.getElementById("cardPreview")).then(canvas=>{
+        let link = document.createElement("a");
+        link.download = "secure-badge.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
+
 </script>
+
 </body>
 </html>
