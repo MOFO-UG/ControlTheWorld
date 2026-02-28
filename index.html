@@ -332,120 +332,91 @@
         </div>
     </footer>
 <script>
-    /* -------------------------------------------------------
-       CODE GENERATOR
-    --------------------------------------------------------*/
-    function generateSpecialCodes(name) {
-        let hash = 0;
-        const str = name || "DEFAULT";
+function generateSpecialCodes(name) {
+    let hash = 0;
+    const str = name || "DEFAULT";
 
-        for (let i = 0; i < str.length; i++) {
-            hash = str.charCodeAt(i) + ((hash << 5) - hash);
-        }
-
-        const uidSuffix = Math.abs(hash % 10000)
-            .toString()
-            .padStart(4, '0');
-
-        const verCode =
-            Math.abs(hash % 99).toString() +
-            "-" +
-            str.charAt(0).toUpperCase() +
-            str.length.toString();
-
-        return {
-            uid: `CA-2026-${uidSuffix}`,
-            ver: `AES-${verCode}`
-        };
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
 
-    /* -------------------------------------------------------
-       LIVE CARD UPDATE
-    --------------------------------------------------------*/
-    function updateCard() {
-        const name = document.getElementById('inName').value;
-        const role = document.getElementById('inRole').value;
-        const domain = document.getElementById('inDomain').value;
+    const uidSuffix = Math.abs(hash % 10000)
+        .toString()
+        .padStart(4, '0');
 
-        const codes = generateSpecialCodes(name);
+    const verCode =
+        Math.abs(hash % 99).toString() +
+        "-" +
+        str.charAt(0).toUpperCase() +
+        str.length.toString();
 
-        document.getElementById('cardName').innerText =
-            name || "YOUR IDENTITY";
+    return {
+        uid: `CA-2026-${uidSuffix}`,
+        ver: `AES-${verCode}`
+    };
+}
 
-        document.getElementById('cardRole').innerText = role;
+function updateCard() {
+    const name = document.getElementById('inName').value;
+    const role = document.getElementById('inRole').value;
+    const domain = document.getElementById('inDomain').value;
 
-        document.getElementById('cardDomain').innerText =
-            (domain || "CYBER") + "_ACCESS";
+    const codes = generateSpecialCodes(name);
 
-        document.getElementById('cardUID').innerText = codes.uid;
-        document.getElementById('cardVer').innerText = codes.ver;
+    document.getElementById('cardName').innerText =
+        name || "YOUR IDENTITY";
+
+    document.getElementById('cardRole').innerText = role;
+
+    document.getElementById('cardDomain').innerText =
+        (domain || "CYBER") + "_ACCESS";
+
+    document.getElementById('cardUID').innerText = codes.uid;
+    document.getElementById('cardVer').innerText = codes.ver;
+}
+
+document.getElementById("exportBtn")
+.addEventListener("click", async function () {
+
+    const card = document.getElementById("member-card");
+    const btn = this;
+
+    btn.innerText = "RENDERING...";
+    btn.disabled = true;
+
+    try {
+        await document.fonts.ready;
+
+        const canvas = await html2canvas(card, {
+            scale: 2,
+            useCORS: true
+        });
+
+        const link = document.createElement("a");
+        link.download = "Cryptonic-Card.png";
+        link.href = canvas.toDataURL("image/png");
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        btn.innerText = "EXPORT SUCCESS";
+
+    } catch (err) {
+        console.error(err);
+        btn.innerText = "EXPORT FAILED";
     }
 
-    /* -------------------------------------------------------
-       EXPORT FUNCTION (STABLE VERSION)
-    --------------------------------------------------------*/
-    async function downloadCard(event) {
+    setTimeout(() => {
+        btn.innerHTML = `
+            <span>AUTHENTICATE & EXPORT</span>
+            <i class="fas fa-shield-alt"></i>
+        `;
+        btn.disabled = false;
+    }, 2000);
+});
 
-        if (!event) {
-            console.error("Event not passed to downloadCard()");
-            return;
-        }
-
-        const card = document.getElementById('member-card');
-        const btn = event.currentTarget;
-
-        btn.innerHTML = '<span>LOCKED_RENDER...</span>';
-        btn.disabled = true;
-
-        try {
-            /* Ensure fonts are fully loaded */
-            await document.fonts.ready;
-
-            const canvas = await html2canvas(card, {
-                scale: 2,
-                useCORS: true,
-                backgroundColor: null,
-                foreignObjectRendering: true,
-                width: 800,
-                height: 480,
-                scrollX: 0,
-                scrollY: 0,
-                onclone: function (clonedDoc) {
-                    const clonedCard =
-                        clonedDoc.getElementById('member-card');
-
-                    if (clonedCard) {
-                        clonedCard.style.transform = "none";
-                    }
-                }
-            });
-
-            const link = document.createElement('a');
-            const fileName =
-                document.getElementById('cardName').innerText
-                    .replace(/\s+/g, "_");
-
-            link.download = `CA-OFFICIAL-${fileName}.png`;
-            link.href = canvas.toDataURL("image/png", 1.0);
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            btn.innerHTML = '<span>EXPORT SUCCESS</span>';
-
-        } catch (error) {
-            console.error("Export failed:", error);
-            btn.innerHTML = '<span>EXPORT FAILED</span>';
-        }
-
-        setTimeout(() => {
-            btn.innerHTML = '<span>AUTHENTICATE & EXPORT</span>';
-            btn.disabled = false;
-        }, 2000);
-    }
-
-    updateCard();
+updateCard();
 </script>
 </body>
 </html>
