@@ -8,43 +8,174 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
-    <style>
-        :root { --accent: #3b82f6; }
-        body { background-color: #f8fafc; font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        .terminal-grid { background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px); background-size: 35px 35px; }
-        
-        /* CARD DESIGN - FULLY LOCKED (DO NOT TOUCH) */
-        #member-card {
-            width: 800px; height: 480px; min-width: 800px; min-height: 480px;
-            background: linear-gradient(135deg, #111827 0%, #1e293b 50%, #0f172a 100%);
-            color: white; position: relative; overflow: hidden; border: 1px solid #334155;
-            display: flex; flex-direction: column; justify-content: space-between;
+<style>
+    :root { --accent: #3b82f6; }
+
+    /* ----------------------------------------------------
+       GLOBAL STABILIZATION
+    -----------------------------------------------------*/
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #f8fafc;
+        font-family: 'Inter', sans-serif;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
+    }
+
+    .mono {
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .terminal-grid {
+        background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+        background-size: 35px 35px;
+    }
+
+    /* ----------------------------------------------------
+       CARD DESIGN - EXPORT STABLE VERSION
+    -----------------------------------------------------*/
+    #member-card {
+        width: 800px;
+        height: 480px;
+        min-width: 800px;
+        min-height: 480px;
+
+        background: linear-gradient(
+            135deg,
+            #111827 0%,
+            #1e293b 50%,
+            #0f172a 100%
+        );
+
+        color: white;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #334155;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        line-height: 1;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+    }
+
+    .cyber-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .side-glow {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background: #3b82f6;
+        box-shadow: 2px 0 25px rgba(59, 130, 246, 0.4);
+    }
+
+    /* ----------------------------------------------------
+       LIFETIME ACCESS BADGE (VERTICALLY LOCKED)
+    -----------------------------------------------------*/
+    .badge-premium {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 24px;
+        padding: 0 14px;
+
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    /* ----------------------------------------------------
+       PREVIEW WRAPPER (SCALE SAFE)
+    -----------------------------------------------------*/
+    .preview-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding: 10px 0;
+    }
+
+    .scaled-card {
+        transform: scale(0.6);
+        transform-origin: center center;
+        will-change: transform;
+    }
+
+    @media (min-width: 1024px) {
+        .scaled-card {
+            transform: scale(0.85);
         }
-        .cyber-bg { position: absolute; inset: 0; background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); opacity: 0.5; pointer-events: none; }
-        .side-glow { position: absolute; left: 0; top: 0; width: 4px; height: 100%; background: #3b82f6; box-shadow: 2px 0 25px rgba(59, 130, 246, 0.4); }
-        .badge-premium { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; padding: 4px 14px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+    }
 
-        /* PREVIEW WRAPPER FOR FITTING */
-        .preview-wrapper { width: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden; padding: 10px 0; }
-        .scaled-card { transform: scale(0.6); transform-origin: center; }
-        @media (min-width: 1024px) { .scaled-card { transform: scale(0.85); } }
-        @media (min-width: 1280px) { .scaled-card { transform: scale(0.95); } }
-
-        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; }
-        
-        /* UPDATED STAT BOXES STYLE */
-        .stat-box { 
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-left: 4px solid #3b82f6;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+    @media (min-width: 1280px) {
+        .scaled-card {
+            transform: scale(0.95);
         }
-        .stat-box:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.1); }
+    }
 
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; z-index: 100; transition: transform 0.3s; }
-    </style>
+    /* ----------------------------------------------------
+       NAVBAR GLASS EFFECT
+    -----------------------------------------------------*/
+    .glass-nav {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* ----------------------------------------------------
+       STAT BOXES
+    -----------------------------------------------------*/
+    .stat-box {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid #3b82f6;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .stat-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.1);
+    }
+
+    /* ----------------------------------------------------
+       FLOAT BUTTON
+    -----------------------------------------------------*/
+    .whatsapp-float {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 100;
+        transition: transform 0.3s;
+    }
+
+</style>
 </head>
 <body class="terminal-grid min-h-screen">
 
@@ -201,45 +332,112 @@
         </div>
     </footer>
 
-    <script>
-        function generateSpecialCodes(name) {
-            let hash = 0; const str = name || "DEFAULT";
-            for (let i = 0; i < str.length; i++) { hash = str.charCodeAt(i) + ((hash << 5) - hash); }
-            const uidSuffix = Math.abs(hash % 10000).toString().padStart(4, '0');
-            const verCode = (Math.abs(hash % 99)).toString() + "-" + str.charAt(0).toUpperCase() + (str.length).toString();
-            return { uid: `CA-2026-${uidSuffix}`, ver: `AES-${verCode}` };
+  <script>
+    function generateSpecialCodes(name) {
+        let hash = 0;
+        const str = name || "DEFAULT";
+
+        for (let i = 0; i < str.length; i++) {
+            hash = str.charCodeAt(i) + ((hash << 5) - hash);
         }
-        function updateCard() {
-            const name = document.getElementById('inName').value;
-            const role = document.getElementById('inRole').value;
-            const domain = document.getElementById('inDomain').value;
-            const codes = generateSpecialCodes(name);
-            document.getElementById('cardName').innerText = name || "YOUR IDENTITY";
-            document.getElementById('cardRole').innerText = role;
-            document.getElementById('cardDomain').innerText = (domain || "CYBER") + "_ACCESS";
-            document.getElementById('cardUID').innerText = codes.uid;
-            document.getElementById('cardVer').innerText = codes.ver;
-        }
-        function downloadCard() {
-            const card = document.getElementById('member-card');
-            const btn = event.currentTarget;
-            btn.innerHTML = '<span>LOCKED_RENDER...</span>';
-            const originalTransform = card.style.transform;
-            card.style.transform = "none";
-            html2canvas(card, {
-                scale: 2, useCORS: true, backgroundColor: null, letterRendering: true,
-                width: 800, height: 480, x: 0, y: 0, scrollX: 0, scrollY: 0
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `CA-OFFICIAL-${document.getElementById('cardName').innerText}.png`;
-                link.href = canvas.toDataURL("image/png", 1.0);
-                link.click();
-                card.style.transform = originalTransform;
-                btn.innerHTML = '<span>EXPORT SUCCESS</span>';
-                setTimeout(() => { btn.innerHTML = '<span>AUTHENTICATE & EXPORT</span>'; }, 2000);
+
+        const uidSuffix = Math.abs(hash % 10000)
+            .toString()
+            .padStart(4, '0');
+
+        const verCode =
+            Math.abs(hash % 99).toString() +
+            "-" +
+            str.charAt(0).toUpperCase() +
+            str.length.toString();
+
+        return {
+            uid: `CA-2026-${uidSuffix}`,
+            ver: `AES-${verCode}`
+        };
+    }
+
+    function updateCard() {
+        const name = document.getElementById('inName').value;
+        const role = document.getElementById('inRole').value;
+        const domain = document.getElementById('inDomain').value;
+
+        const codes = generateSpecialCodes(name);
+
+        document.getElementById('cardName').innerText =
+            name || "YOUR IDENTITY";
+
+        document.getElementById('cardRole').innerText = role;
+
+        document.getElementById('cardDomain').innerText =
+            (domain || "CYBER") + "_ACCESS";
+
+        document.getElementById('cardUID').innerText = codes.uid;
+        document.getElementById('cardVer').innerText = codes.ver;
+    }
+
+    async function downloadCard(event) {
+        const card = document.getElementById('member-card');
+        const btn = event.currentTarget;
+
+        btn.innerHTML = '<span>LOCKED_RENDER...</span>';
+
+        try {
+            /* ---------------------------------------------------------
+               1️⃣ Ensure all web fonts are fully loaded
+            ---------------------------------------------------------- */
+            await document.fonts.ready;
+
+            /* ---------------------------------------------------------
+               2️⃣ Render using clone to avoid live DOM mutation
+            ---------------------------------------------------------- */
+            const canvas = await html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: null,
+                foreignObjectRendering: true,
+                width: 800,
+                height: 480,
+                scrollX: 0,
+                scrollY: 0,
+                onclone: (clonedDoc) => {
+                    const clonedCard =
+                        clonedDoc.getElementById('member-card');
+
+                    /* Remove preview scaling ONLY inside clone */
+                    clonedCard.style.transform = "none";
+                }
             });
+
+            /* ---------------------------------------------------------
+               3️⃣ Trigger Download
+            ---------------------------------------------------------- */
+            const link = document.createElement('a');
+            link.download =
+                `CA-OFFICIAL-${document.getElementById('cardName').innerText}.png`;
+
+            link.href = canvas.toDataURL("image/png", 1.0);
+            link.click();
+
+            btn.innerHTML = '<span>EXPORT SUCCESS</span>';
+
+            setTimeout(() => {
+                btn.innerHTML =
+                    '<span>AUTHENTICATE & EXPORT</span>';
+            }, 2000);
+
+        } catch (error) {
+            console.error("Export failed:", error);
+            btn.innerHTML = '<span>EXPORT FAILED</span>';
+
+            setTimeout(() => {
+                btn.innerHTML =
+                    '<span>AUTHENTICATE & EXPORT</span>';
+            }, 2000);
         }
-        updateCard();
-    </script>
+    }
+
+    updateCard();
+</script>
 </body>
 </html>
