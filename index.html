@@ -12,7 +12,7 @@
     :root { --accent: #3b82f6; }
 
     /* ----------------------------------------------------
-       GLOBAL STABILIZATION
+       GLOBAL STABILIZATION (CANVAS SAFE)
     -----------------------------------------------------*/
     *, *::before, *::after {
         box-sizing: border-box;
@@ -23,6 +23,8 @@
         font-family: 'Inter', sans-serif;
         scroll-behavior: smooth;
         overflow-x: hidden;
+
+        /* Rendering stability */
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: geometricPrecision;
@@ -38,7 +40,7 @@
     }
 
     /* ----------------------------------------------------
-       CARD DESIGN - EXPORT STABLE VERSION
+       CARD DESIGN - HARD LOCKED LAYOUT
     -----------------------------------------------------*/
     #member-card {
         width: 800px;
@@ -62,9 +64,15 @@
         flex-direction: column;
         justify-content: space-between;
 
+        /* Critical for export stability */
         line-height: 1;
         transform-style: preserve-3d;
         backface-visibility: hidden;
+    }
+
+    /* Force deterministic line-height inside card */
+    #member-card * {
+        line-height: 1;
     }
 
     .cyber-bg {
@@ -86,15 +94,15 @@
     }
 
     /* ----------------------------------------------------
-       LIFETIME ACCESS BADGE (VERTICALLY LOCKED)
+       LIFETIME ACCESS BADGE (PIXEL LOCKED)
     -----------------------------------------------------*/
     .badge-premium {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
 
-        height: 24px;
-        padding: 0 14px;
+        height: 26px;          /* fixed height */
+        padding: 0 14px;       /* no vertical padding */
 
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -105,12 +113,12 @@
         text-transform: uppercase;
         letter-spacing: 2px;
 
-        line-height: 1;
+        line-height: 26px;     /* equal to height */
         white-space: nowrap;
     }
 
     /* ----------------------------------------------------
-       PREVIEW WRAPPER (SCALE SAFE)
+       PREVIEW WRAPPER (SAFE SCALING)
     -----------------------------------------------------*/
     .preview-wrapper {
         width: 100%;
