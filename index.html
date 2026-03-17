@@ -1,443 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Cryptonic Area – Premium Badge</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify Enrollment | Cryptonic Area</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700&display=swap"
-        rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- html2canvas -->
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    body {
-      background: #0a0e17;
-      font-family: 'Inter', sans-serif;
-      color: #e0e0e0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-    }
+<script>
+tailwind.config = {
+theme:{
+extend:{
+colors:{
+brand:{
+bg:'#f4f7f9',
+dark:'#0a0e27',
+cyan:'#00d1c7',
+purple:'#7c3aed'
+}
+},
+fontFamily:{
+tech:['Rajdhani','monospace'],
+sans:['Inter','sans-serif']
+}
+}
+}
+}
+</script>
 
-    /* ===== FORM ===== */
+<style>
 
-    .form-box {
-      width: 100%;
-      max-width: 700px;
-      background: #121a2b;
-      padding: 32px;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0, 40, 120, 0.4);
-      border: 1px solid #1e2a4a;
-      margin-bottom: 60px;
-    }
+body{background:#f4f7f9;}
 
-    .form-box h2 {
-      margin-bottom: 28px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: #00c6ff;
-      font-size: 22px;
-    }
+.glass-card{
+background:white;
+border:1px solid rgba(0,0,0,0.05);
+box-shadow:0 15px 35px rgba(0,0,0,0.03);
+}
 
-    .form-group {
-      margin-bottom: 22px;
-    }
+.input-box{
+background:#fbfcfd;
+border:1px solid #e2e8f0;
+transition:all 0.3s;
+}
 
-    label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 6px;
-      opacity: 0.8;
-      letter-spacing: 0.5px;
-    }
+.input-box:focus{
+border-color:#00d1c7;
+background:white;
+box-shadow:0 0 0 4px rgba(0,209,199,0.1);
+outline:none;
+}
 
-    input, select {
-      width: 100%;
-      padding: 13px 14px;
-      background: #0f172a;
-      border: 1px solid #263b60;
-      border-radius: 10px;
-      color: #ffffff;
-      font-size: 14px;
-      transition: border 0.2s, box-shadow 0.2s;
-    }
+@keyframes pulse-cyan{
+0%{box-shadow:0 0 0 0 rgba(0,209,199,0.4);}
+70%{box-shadow:0 0 0 15px rgba(0,209,199,0);}
+100%{box-shadow:0 0 0 0 rgba(0,209,199,0);}
+}
 
-    input:focus, select:focus {
-      outline: none;
-      border-color: #2f6fff;
-      box-shadow: 0 0 0 2px rgba(47, 111, 255, 0.3);
-    }
+.btn-verify{animation:pulse-cyan 2s infinite;}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(90deg, #2f6fff, #00c6ff);
-      border: none;
-      border-radius: 10px;
-      font-weight: 700;
-      letter-spacing: 2.2px;
-      cursor: pointer;
-      color: #fff;
-      margin-top: 10px;
-      transition: transform 0.25s, box-shadow 0.25s;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
+.pay-redirect-btn{
+position:fixed;
+bottom:25px;
+left:25px;
+background:white;
+border:1px solid #e2e8f0;
+padding:8px 15px;
+border-radius:50px;
+font-size:10px;
+font-weight:bold;
+color:#64748b;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+display:flex;
+align-items:center;
+gap:8px;
+}
 
-    button:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
-    }
-
-    .btn-copy {
-      margin-top: 12px;
-      background: linear-gradient(90deg, #1a2540, #1a2948);
-      letter-spacing: 2px;
-    }
-
-    /* ===== CARD PREVIEW CONTAINER ===== */
-
-    .card-wrapper {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-
-    /* ===== HORIZONTAL CARD (RECTANGLE) ===== */
-
-    .card {
-      width: 1000px;
-      height: 360px; /* 16:9 horizontal rectangle */
-      border-radius: 32px;
-      padding: 40px 50px 40px 60px;
-      position: relative;
-      background: linear-gradient(145deg, #0b162f, #1a2b4f);
-      box-shadow:
-        0 0 80px rgba(0, 120, 255, 0.25),
-        inset 0 0 30px rgba(0, 120, 255, 0.1);
-      overflow: hidden;
-      border: 1px solid rgba(0, 170, 255, 0.15);
-      transform: translateZ(0);
-    }
-
-    /* Left gradient neon strip */
-    .card::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 10px;
-      background: linear-gradient(
-        to bottom,
-        #2f6fff,
-        #00c6ff 40%,
-        #2f6fff 80%,
-        #00c6ff
-      );
-      box-shadow: 0 0 25px #2f6fff, 0 0 10px #00c6ff;
-      border-radius: 0 10px 10px 0;
-    }
-
-    /* Top section (logo + access badge) */
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .logo {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: 28px;
-      letter-spacing: 3px;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
-    }
-
-    .logo span {
-      color: #00c6ff;
-    }
-
-    .access {
-      padding: 8px 20px;
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      font-size: 11px;
-      letter-spacing: 3px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #00ffea;
-      text-transform: uppercase;
-      box-shadow: 0 0 10px rgba(0, 255, 234, 0.2);
-    }
-
-    /* Middle section (name + role) */
-    .middle {
-      margin-top: 60px;
-    }
-
-    .middle small {
-      letter-spacing: 6px;
-      font-size: 11px;
-      opacity: 0.6;
-      text-transform: uppercase;
-    }
-
-    .name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 48px;
-      font-weight: 900;
-      margin-top: 10px;
-      letter-spacing: 1px;
-      color: #ffffff;
-      text-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
-    }
-
-    .role {
-      font-size: 18px;
-      letter-spacing: 3px;
-      margin-top: 6px;
-      opacity: 0.85;
-      text-transform: uppercase;
-      color: #00c6ff;
-      text-shadow: 0 0 8px rgba(0, 198, 255, 0.3);
-    }
-
-    /* Right side info block */
-    .info-right {
-      position: absolute;
-      top: 50px;
-      right: 50px;
-      font-size: 13px;
-      line-height: 2;
-      color: #c0d0f0;
-      text-align: right;
-    }
-
-    .info-right strong {
-      color: #00c6ff;
-    }
-
-    .info-right span {
-      opacity: 0.7;
-    }
-
-    .protocol-hash {
-      margin-top: 4px;
-      opacity: 0.7;
-      font-size: 12px;
-    }
-
-    .founder {
-      margin-top: 12px;
-      font-size: 12px;
-      opacity: 0.7;
-    }
-
-    /* Divider line */
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, #00c6ff, transparent);
-      margin: 20px 0 16px 0;
-      opacity: 0.4;
-    }
-
-    /* QR code block (compact) */
-    .qr {
-      width: 90px;
-      height: 90px;
-      background: #0f1624;
-      border-radius: 8px;
-      border: 1px solid #00c6ff;
-      box-shadow: 0 0 10px rgba(0, 198, 255, 0.2);
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #00c6ff;
-      letter-spacing: 1px;
-      font-size: 10px;
-    }
-
-    /* Namespace info */
-    .meta-left {
-      margin-top: 10px;
-      font-size: 14px;
-      line-height: 2;
-      opacity: 0.85;
-    }
-
-    .meta-left strong {
-      color: #00c6ff;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 1100px) {
-      .card {
-        width: 95%;
-        height: auto;
-        min-height: 320px;
-        padding: 40px 30px 30px 35px;
-        font-size: 0.95em;
-      }
-
-      .top {
-        flex-direction: column;
-        align-items: flex-start;
-        row-gap: 10px;
-      }
-
-      .info-right {
-        position: static;
-        margin-top: -5px;
-        margin-left: auto;
-      }
-
-      .middle {
-        margin-top: 40px;
-      }
-
-      .name {
-        font-size: 36px;
-      }
-
-      .role {
-        font-size: 15px;
-      }
-    }
-  </style>
+</style>
 </head>
-<body>
 
-  <!-- ===== FORM Section ===== -->
-  <div class="form-box">
-    <h2>Initialize Identity</h2>
+<body class="font-sans text-slate-800">
 
-    <div class="form-group">
-      <label>Full Name</label>
-      <input type="text" id="nameInput" placeholder="Enter your name">
-    </div>
+<header class="w-full bg-white border-b border-slate-200 py-3 px-6 sticky top-0">
 
-    <div class="form-group">
-      <label>Role</label>
-      <select id="roleInput">
-        <option>Community Member</option>
-        <option>Team</option>
-        <option>Collaborator</option>
-        <option>Brands</option>
-      </select>
-    </div>
+<div class="container mx-auto flex justify-between items-center">
 
-    <div class="form-group">
-      <label>Domain</label>
-      <input type="text" id="domainInput" placeholder="Enter domain">
-    </div>
+<div class="flex items-center gap-2">
 
-    <button onclick="downloadCard()">AUTHENTICATE & EXPORT</button>
-    <button class="btn-copy" onclick="copyToClipboard()">COPY TO CLIPBOARD</button>
-  </div>
+<div class="w-8 h-8 bg-brand-dark rounded flex items-center justify-center p-1">
 
-  <!-- ===== CARD PREVIEW WRAPPER ===== -->
-  <div class="card-wrapper">
-    <div class="card" id="cardPreview">
+<img src="assets/cryptonicarea.jpg">
 
-      <!-- Top -->
-      <div class="top">
-        <div class="logo">CRYPTONIC <span>AREA</span></div>
-        <div class="access">LIFETIME ACCESS</div>
-      </div>
+</div>
 
-      <div class="middle">
-        <small>CYBER SECURITY ACCESS</small>
-        <div class="name" id="previewName">RAHUL KUMAR</div>
-        <div class="role" id="previewRole">COMMUNITY MEMBER</div>
-      </div>
+<div class="flex flex-col">
 
-      <!-- Left meta info -->
-      <div class="meta-left">
-        Identity ID: CA-2026-7460<br>
-        Clearance: <strong>VERIFIED</strong><br>
-        Node: GLOBAL-OPS<br>
-        Domain: <strong id="previewDomain">CYBER SECURITY</strong>
-      </div>
+<span class="font-tech text-lg font-bold text-brand-dark">CRYPTONIC AREA</span>
 
-      <!-- Right side info -->
-      <div class="info-right">
-        <span class="protocol-hash">Protocol Hash: AES‑49‑R12</span><br>
-        <div class="founder">Founder & CEO: Karandeep Baror</div>
-        <div class="qr">
-          QR CODE
-        </div>
-      </div>
+<span class="font-tech text-[8px] font-bold text-brand-cyan uppercase">Verification Portal</span>
 
-    </div>
-  </div>
+</div>
 
-  <script>
-    const nameInput    = document.getElementById("nameInput");
-    const roleInput    = document.getElementById("roleInput");
-    const domainInput  = document.getElementById("domainInput");
+</div>
 
-    nameInput.addEventListener("input", () => {
-      document.getElementById("previewName").innerText =
-        (nameInput.value || "RAHUL KUMAR").toUpperCase();
-    });
+</div>
 
-    roleInput.addEventListener("change", () => {
-      document.getElementById("previewRole").innerText =
-        roleInput.value.toUpperCase();
-    });
+</header>
 
-    domainInput.addEventListener("input", () => {
-      document.getElementById("previewDomain").innerText =
-        (domainInput.value || "CYBER SECURITY").toUpperCase();
-    });
+<main class="container mx-auto px-6 py-10 max-w-4xl">
 
-    function downloadCard() {
-      html2canvas(document.getElementById("cardPreview"), {
-        scale: 2,
-        backgroundColor: null
-      }).then((canvas) => {
-        const link = document.createElement("a");
-        link.download = "cryptonic-badge.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      });
-    }
+<div class="glass-card rounded-3xl p-8">
 
-    function copyToClipboard() {
-      const card = document.getElementById("cardPreview");
-      const range = document.createRange();
-      const selection = window.getSelection();
+<form id="enrollForm" class="space-y-5">
 
-      selection.removeAllRanges();
-      range.selectNode(card);
-      selection.addRange(range);
+<div>
 
-      try {
-        document.execCommand("copy");
-        alert("Badge text copied to clipboard (for screenshots you can paste into image editors).");
-      } catch (err) {
-        alert("Failed to copy. Try manual screenshot.");
-      }
+<label class="text-[10px] font-bold text-slate-400 uppercase">Full Name</label>
 
-      selection.removeAllRanges();
-    }
-  </script>
+<input id="name" required class="input-box w-full px-4 py-3 rounded-xl">
+
+</div>
+
+<div>
+
+<label class="text-[10px] font-bold text-slate-400 uppercase">Email</label>
+
+<input id="email" type="email" required class="input-box w-full px-4 py-3 rounded-xl">
+
+</div>
+
+<div class="grid md:grid-cols-2 gap-5">
+
+<div>
+
+<label class="text-[10px] font-bold text-slate-400 uppercase">Mobile</label>
+
+<input id="mobile" required class="input-box w-full px-4 py-3 rounded-xl">
+
+</div>
+
+<div>
+
+<label class="text-[10px] font-bold text-slate-400 uppercase">WhatsApp</label>
+
+<input id="whatsapp" required class="input-box w-full px-4 py-3 rounded-xl">
+
+</div>
+
+</div>
+
+<div>
+
+<label class="text-[10px] font-bold text-slate-400 uppercase">Transaction ID</label>
+
+<input id="txid" required class="input-box w-full px-4 py-3 rounded-xl">
+
+</div>
+
+<button class="w-full bg-brand-dark text-white py-4 rounded-xl">
+
+Submit Enrollment
+
+</button>
+
+</form>
+
+</div>
+
+</main>
+
+<script>
+
+const TOKEN="PASTE_YOUR_TOKEN_HERE"
+const OWNER="MOFO-UG"
+const REPO="ControlTheWorld"
+
+document.getElementById("enrollForm").addEventListener("submit",async e=>{
+
+e.preventDefault()
+
+const data={
+
+name:document.getElementById("name").value,
+
+email:document.getElementById("email").value,
+
+mobile:document.getElementById("mobile").value,
+
+whatsapp:document.getElementById("whatsapp").value,
+
+transaction_id:document.getElementById("txid").value,
+
+timestamp:new Date().toISOString(),
+
+device:navigator.userAgent
+
+}
+
+const json=JSON.stringify(data,null,2)
+
+const base64=btoa(unescape(encodeURIComponent(json)))
+
+const filename="enrollments/"+Date.now()+".json"
+
+const url=`https://api.github.com/repos/${OWNER}/${REPO}/contents/${filename}`
+
+const body={
+
+message:"New Enrollment Submission",
+
+content:base64
+
+}
+
+try{
+
+const res=await fetch(url,{
+
+method:"PUT",
+
+headers:{
+
+Authorization:"Bearer "+TOKEN,
+
+Accept:"application/vnd.github+json",
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify(body)
+
+})
+
+if(res.status==200||res.status==201){
+
+alert("Enrollment Submitted Successfully")
+
+}else{
+
+const t=await res.text()
+
+alert("Upload Failed: "+t)
+
+}
+
+}catch(err){
+
+alert("Error: "+err)
+
+}
+
+})
+
+</script>
 
 </body>
 </html>
