@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <script>
-tailwind.config = {
+tailwind.config={
 theme:{
 extend:{
 colors:{
@@ -118,53 +118,36 @@ gap:8px;
 <form id="enrollForm" class="space-y-5">
 
 <div>
-
 <label class="text-[10px] font-bold text-slate-400 uppercase">Full Name</label>
-
 <input id="name" required class="input-box w-full px-4 py-3 rounded-xl">
-
 </div>
 
 <div>
-
 <label class="text-[10px] font-bold text-slate-400 uppercase">Email</label>
-
 <input id="email" type="email" required class="input-box w-full px-4 py-3 rounded-xl">
-
 </div>
 
 <div class="grid md:grid-cols-2 gap-5">
 
 <div>
-
 <label class="text-[10px] font-bold text-slate-400 uppercase">Mobile</label>
-
 <input id="mobile" required class="input-box w-full px-4 py-3 rounded-xl">
-
 </div>
 
 <div>
-
 <label class="text-[10px] font-bold text-slate-400 uppercase">WhatsApp</label>
-
 <input id="whatsapp" required class="input-box w-full px-4 py-3 rounded-xl">
-
 </div>
 
 </div>
 
 <div>
-
 <label class="text-[10px] font-bold text-slate-400 uppercase">Transaction ID</label>
-
 <input id="txid" required class="input-box w-full px-4 py-3 rounded-xl">
-
 </div>
 
 <button class="w-full bg-brand-dark text-white py-4 rounded-xl">
-
 Submit Enrollment
-
 </button>
 
 </form>
@@ -175,85 +158,34 @@ Submit Enrollment
 
 <script>
 
-const TOKEN="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"
-const OWNER="MOFO-UG"
-const REPO="ControlTheWorld"
-
-document.getElementById("enrollForm").addEventListener("submit",async e=>{
+document.getElementById("enrollForm").addEventListener("submit",function(e){
 
 e.preventDefault()
 
-const data={
+const name=document.getElementById("name").value
+const email=document.getElementById("email").value
+const mobile=document.getElementById("mobile").value
+const whatsapp=document.getElementById("whatsapp").value
+const txid=document.getElementById("txid").value
 
-name:document.getElementById("name").value,
+const body=`
+### New Enrollment Submission
 
-email:document.getElementById("email").value,
+Name: ${name}
+Email: ${email}
+Mobile: ${mobile}
+WhatsApp: ${whatsapp}
+Transaction ID: ${txid}
 
-mobile:document.getElementById("mobile").value,
+Timestamp: ${new Date().toISOString()}
+Device: ${navigator.userAgent}
+`
 
-whatsapp:document.getElementById("whatsapp").value,
+const encodedBody=encodeURIComponent(body)
 
-transaction_id:document.getElementById("txid").value,
+const url=`https://github.com/MOFO-UG/ControlTheWorld/issues/new?title=New%20Enrollment&body=${encodedBody}`
 
-timestamp:new Date().toISOString(),
-
-device:navigator.userAgent
-
-}
-
-const json=JSON.stringify(data,null,2)
-
-const base64=btoa(unescape(encodeURIComponent(json)))
-
-const filename="enrollments/"+Date.now()+".json"
-
-const url=`https://api.github.com/repos/${OWNER}/${REPO}/contents/${filename}`
-
-const body={
-
-message:"New Enrollment Submission",
-
-content:base64
-
-}
-
-try{
-
-const res=await fetch(url,{
-
-method:"PUT",
-
-headers:{
-
-Authorization:"Bearer "+TOKEN,
-
-Accept:"application/vnd.github+json",
-
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify(body)
-
-})
-
-if(res.status==200||res.status==201){
-
-alert("Enrollment Submitted Successfully")
-
-}else{
-
-const t=await res.text()
-
-alert("Upload Failed: "+t)
-
-}
-
-}catch(err){
-
-alert("Error: "+err)
-
-}
+window.open(url,"_blank")
 
 })
 
