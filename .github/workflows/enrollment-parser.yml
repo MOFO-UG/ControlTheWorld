@@ -1,0 +1,53 @@
+name: Convert Enrollment Issue to JSON
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+
+  process:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract Issue Data
+        id: extract
+        run: |
+
+          BODY="${{ github.event.issue.body }}"
+
+          NAME=$(echo "$BODY" | grep "Name:" | sed 's/Name: //')
+          EMAIL=$(echo "$BODY" | grep "Email:" | sed 's/Email: //')
+          MOBILE=$(echo "$BODY" | grep "Mobile:" | sed 's/Mobile: //')
+          WHATSAPP=$(echo "$BODY" | grep "WhatsApp:" | sed 's/WhatsApp: //')
+          TXID=$(echo "$BODY" | grep "TransactionID:" | sed 's/TransactionID: //')
+          TIME=$(echo "$BODY" | grep "Timestamp:" | sed 's/Timestamp: //')
+
+          mkdir -p enrollments
+
+          FILE="enrollments/$(date +%s).json"
+
+          cat <<EOF > $FILE
+          {
+            "name": "$NAME",
+            "email": "$EMAIL",
+            "mobile": "$MOBILE",
+            "whatsapp": "$WHATSAPP",
+            "transaction_id": "$TXID",
+            "timestamp": "$TIME"
+          }
+          EOF
+
+      - name: Commit JSON file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add enrollments/
+          git commit -m "New enrollment record"
+          git push
