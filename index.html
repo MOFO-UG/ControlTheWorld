@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Verify Enrollment | Cryptonic Area</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -45,7 +48,7 @@ box-shadow:0 15px 35px rgba(0,0,0,0.03);
 .input-box{
 background:#fbfcfd;
 border:1px solid #e2e8f0;
-transition:all 0.3s;
+transition:all .3s;
 }
 
 .input-box:focus{
@@ -55,32 +58,17 @@ box-shadow:0 0 0 4px rgba(0,209,199,0.1);
 outline:none;
 }
 
-@keyframes pulse-cyan{
-0%{box-shadow:0 0 0 0 rgba(0,209,199,0.4);}
-70%{box-shadow:0 0 0 15px rgba(0,209,199,0);}
-100%{box-shadow:0 0 0 0 rgba(0,209,199,0);}
+.btn-verify{
+background:#0a0e27;
+transition:.3s;
 }
 
-.btn-verify{animation:pulse-cyan 2s infinite;}
-
-.pay-redirect-btn{
-position:fixed;
-bottom:25px;
-left:25px;
-background:white;
-border:1px solid #e2e8f0;
-padding:8px 15px;
-border-radius:50px;
-font-size:10px;
-font-weight:bold;
-color:#64748b;
-box-shadow:0 5px 15px rgba(0,0,0,0.05);
-display:flex;
-align-items:center;
-gap:8px;
+.btn-verify:hover{
+background:#020617;
 }
 
 </style>
+
 </head>
 
 <body class="font-sans text-slate-800">
@@ -92,17 +80,12 @@ gap:8px;
 <div class="flex items-center gap-2">
 
 <div class="w-8 h-8 bg-brand-dark rounded flex items-center justify-center p-1">
-
 <img src="assets/cryptonicarea.jpg">
-
 </div>
 
 <div class="flex flex-col">
-
 <span class="font-tech text-lg font-bold text-brand-dark">CRYPTONIC AREA</span>
-
-<span class="font-tech text-[8px] font-bold text-brand-cyan uppercase">Verification Portal</span>
-
+<span class="font-tech text-[8px] font-bold text-brand-cyan uppercase tracking-widest">Verification Portal</span>
 </div>
 
 </div>
@@ -111,42 +94,42 @@ gap:8px;
 
 </header>
 
-<main class="container mx-auto px-6 py-10 max-w-4xl">
+<main class="container mx-auto px-6 py-10 max-w-3xl">
 
 <div class="glass-card rounded-3xl p-8">
 
-<form id="enrollForm" class="space-y-5">
+<form id="enrollForm" class="space-y-6">
 
 <div>
-<label class="text-[10px] font-bold text-slate-400 uppercase">Full Name</label>
-<input id="name" required class="input-box w-full px-4 py-3 rounded-xl">
+<label class="text-[11px] font-bold text-slate-500 uppercase">Full Name</label>
+<input id="name" type="text" required class="input-box w-full px-4 py-3 rounded-xl">
 </div>
 
 <div>
-<label class="text-[10px] font-bold text-slate-400 uppercase">Email</label>
+<label class="text-[11px] font-bold text-slate-500 uppercase">Email Address</label>
 <input id="email" type="email" required class="input-box w-full px-4 py-3 rounded-xl">
 </div>
 
 <div class="grid md:grid-cols-2 gap-5">
 
 <div>
-<label class="text-[10px] font-bold text-slate-400 uppercase">Mobile</label>
-<input id="mobile" required class="input-box w-full px-4 py-3 rounded-xl">
+<label class="text-[11px] font-bold text-slate-500 uppercase">Mobile Number</label>
+<input id="mobile" type="tel" required class="input-box w-full px-4 py-3 rounded-xl">
 </div>
 
 <div>
-<label class="text-[10px] font-bold text-slate-400 uppercase">WhatsApp</label>
-<input id="whatsapp" required class="input-box w-full px-4 py-3 rounded-xl">
+<label class="text-[11px] font-bold text-slate-500 uppercase">WhatsApp Number</label>
+<input id="whatsapp" type="tel" required class="input-box w-full px-4 py-3 rounded-xl">
 </div>
 
 </div>
 
 <div>
-<label class="text-[10px] font-bold text-slate-400 uppercase">Transaction ID</label>
-<input id="txid" required class="input-box w-full px-4 py-3 rounded-xl">
+<label class="text-[11px] font-bold text-slate-500 uppercase">Transaction ID</label>
+<input id="txid" type="text" required class="input-box w-full px-4 py-3 rounded-xl uppercase">
 </div>
 
-<button class="w-full bg-brand-dark text-white py-4 rounded-xl">
+<button type="submit" class="btn-verify w-full text-white py-4 rounded-xl font-semibold tracking-wide">
 Submit Enrollment
 </button>
 
@@ -158,38 +141,50 @@ Submit Enrollment
 
 <script>
 
+const REPO_OWNER="MOFO-UG"
+const REPO_NAME="ControlTheWorld"
+
 document.getElementById("enrollForm").addEventListener("submit",function(e){
 
 e.preventDefault()
 
-const name=document.getElementById("name").value
-const email=document.getElementById("email").value
-const mobile=document.getElementById("mobile").value
-const whatsapp=document.getElementById("whatsapp").value
-const txid=document.getElementById("txid").value
+const data={
+name:document.getElementById("name").value.trim(),
+email:document.getElementById("email").value.trim(),
+mobile:document.getElementById("mobile").value.trim(),
+whatsapp:document.getElementById("whatsapp").value.trim(),
+transaction:document.getElementById("txid").value.trim(),
+time:new Date().toISOString(),
+device:navigator.userAgent
+}
 
-const body=`
-### New Enrollment Submission
+const issueBody=
+`### Enrollment Submission
 
-Name: ${name}
-Email: ${email}
-Mobile: ${mobile}
-WhatsApp: ${whatsapp}
-Transaction ID: ${txid}
+Name: ${data.name}
+Email: ${data.email}
+Mobile: ${data.mobile}
+WhatsApp: ${data.whatsapp}
+TransactionID: ${data.transaction}
 
-Timestamp: ${new Date().toISOString()}
-Device: ${navigator.userAgent}
+Timestamp: ${data.time}
+Device: ${data.device}
+
+--- 
+Submitted via Cryptonic Area Website
 `
 
-const encodedBody=encodeURIComponent(body)
+const encodedBody=encodeURIComponent(issueBody)
 
-const url=`https://github.com/MOFO-UG/ControlTheWorld/issues/new?title=New%20Enrollment&body=${encodedBody}`
+const issueURL=
+`https://github.com/${REPO_OWNER}/${REPO_NAME}/issues/new?title=Enrollment-${Date.now()}&body=${encodedBody}`
 
-window.open(url,"_blank")
+window.open(issueURL,"_blank")
 
 })
 
 </script>
 
 </body>
+
 </html>
