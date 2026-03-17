@@ -138,13 +138,20 @@ Submit Enrollment
 </div>
 
 </main>
-
 <script>
 
-const REPO_OWNER="MOFO-UG"
-const REPO_NAME="ControlTheWorld"
+const OWNER = "MOFO-UG"
+const REPO = "ControlTheWorld"
 
-document.getElementById("enrollForm").addEventListener("submit",function(e){
+/*
+IMPORTANT:
+This token must be a Fine-grained token with:
+Repository → Issues → Read & Write
+*/
+
+const TOKEN = "PASTE_TOKEN_HERE"
+
+document.getElementById("enrollForm").addEventListener("submit", async function(e){
 
 e.preventDefault()
 
@@ -158,8 +165,7 @@ time:new Date().toISOString(),
 device:navigator.userAgent
 }
 
-const issueBody=
-`### Enrollment Submission
+const body = `### Enrollment Submission
 
 Name: ${data.name}
 Email: ${data.email}
@@ -169,17 +175,45 @@ TransactionID: ${data.transaction}
 
 Timestamp: ${data.time}
 Device: ${data.device}
-
---- 
-Submitted via Cryptonic Area Website
 `
 
-const encodedBody=encodeURIComponent(issueBody)
+try{
 
-const issueURL=
-`https://github.com/${REPO_OWNER}/${REPO_NAME}/issues/new?title=Enrollment-${Date.now()}&body=${encodedBody}`
+const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/issues`,{
 
-window.open(issueURL,"_blank")
+method:"POST",
+
+headers:{
+"Authorization":"Bearer "+TOKEN,
+"Accept":"application/vnd.github+json",
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+title:"Enrollment-"+Date.now(),
+body:body
+})
+
+})
+
+if(res.status===201){
+
+alert("Enrollment submitted successfully!")
+
+document.getElementById("enrollForm").reset()
+
+}else{
+
+const txt = await res.text()
+alert("Error: "+txt)
+
+}
+
+}catch(err){
+
+alert("Network error: "+err)
+
+}
 
 })
 
