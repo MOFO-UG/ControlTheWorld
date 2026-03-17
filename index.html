@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,19 +16,19 @@
 
 <script>
 tailwind.config = {
-theme:{
-extend:{
-colors:{
-brand:{
-bg:'#f4f7f9',
-dark:'#0a0e27',
-cyan:'#00d1c7',
-purple:'#7c3aed'
+theme: {
+extend: {
+colors: {
+brand: {
+bg: '#f4f7f9',
+dark: '#0a0e27',
+cyan: '#00d1c7',
+purple: '#7c3aed',
 }
 },
-fontFamily:{
-tech:['Rajdhani','monospace'],
-sans:['Inter','sans-serif']
+fontFamily: {
+tech: ['Rajdhani', 'monospace'],
+sans: ['Inter', 'sans-serif'],
 }
 }
 }
@@ -35,65 +37,66 @@ sans:['Inter','sans-serif']
 
 <style>
 
-body{
-background:#f4f7f9
+body { background-color: #f4f7f9; }
+
+.glass-card {
+background: white;
+border: 1px solid rgba(0,0,0,0.05);
+box-shadow: 0 15px 35px rgba(0,0,0,0.03);
 }
 
-.glass-card{
-background:white;
-border:1px solid rgba(0,0,0,.05);
-box-shadow:0 15px 35px rgba(0,0,0,.03)
+.input-box {
+background: #fbfcfd;
+border: 1px solid #e2e8f0;
+transition: all 0.3s;
 }
 
-.input-box{
-background:#fbfcfd;
-border:1px solid #e2e8f0;
-transition:.3s
+.input-box:focus {
+border-color: #00d1c7;
+background: white;
+box-shadow: 0 0 0 4px rgba(0, 209, 199, 0.1);
+outline: none;
 }
 
-.input-box:focus{
-border-color:#00d1c7;
-background:white;
-box-shadow:0 0 0 4px rgba(0,209,199,.1);
-outline:none
+@keyframes pulse-cyan {
+0% { box-shadow: 0 0 0 0 rgba(0, 209, 199, 0.4); }
+70% { box-shadow: 0 0 0 15px rgba(0, 209, 199, 0); }
+100% { box-shadow: 0 0 0 0 rgba(0, 209, 199, 0); }
 }
 
-@keyframes pulse-cyan{
-0%{box-shadow:0 0 0 0 rgba(0,209,199,.4)}
-70%{box-shadow:0 0 0 15px rgba(0,209,199,0)}
-100%{box-shadow:0 0 0 0 rgba(0,209,199,0)}
+.btn-verify {
+animation: pulse-cyan 2s infinite;
 }
 
-.btn-verify{
-animation:pulse-cyan 2s infinite
+/* Bottom Corner Mini Button */
+
+.pay-redirect-btn {
+position: fixed;
+bottom: 25px;
+left: 25px;
+background: #ffffff;
+border: 1px solid #e2e8f0;
+padding: 8px 15px;
+border-radius: 50px;
+font-size: 10px;
+font-weight: bold;
+color: #64748b;
+box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+z-index: 1000;
+display: flex;
+align-items: center;
+gap: 8px;
+transition: 0.3s;
 }
 
-.pay-redirect-btn{
-position:fixed;
-bottom:25px;
-left:25px;
-background:white;
-border:1px solid #e2e8f0;
-padding:8px 15px;
-border-radius:50px;
-font-size:10px;
-font-weight:bold;
-color:#64748b;
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-z-index:1000;
-display:flex;
-align-items:center;
-gap:8px;
-transition:.3s
-}
-
-.pay-redirect-btn:hover{
-background:#f8fafc;
-border-color:#00d1c7;
-color:#0a0e27
+.pay-redirect-btn:hover {
+background: #f8fafc;
+border-color: #00d1c7;
+color: #0a0e27;
 }
 
 </style>
+
 </head>
 
 <body class="font-sans text-slate-800">
@@ -105,28 +108,24 @@ color:#0a0e27
 <div class="flex items-center gap-2">
 
 <div class="w-8 h-8 bg-brand-dark rounded flex items-center justify-center p-1">
-<img src="assets/cryptonicarea.jpg" class="w-full h-full object-contain">
+<img src="assets/cryptonicarea.jpg" alt="CA" class="w-full h-full object-contain">
 </div>
 
 <div class="flex flex-col">
-<span class="font-tech text-lg font-bold text-brand-dark tracking-wider leading-none">
-CRYPTONIC AREA
-</span>
-
-<span class="font-tech text-[8px] font-bold text-brand-cyan tracking-[0.3em] leading-none uppercase">
-Verification Portal
-</span>
+<span class="font-tech text-lg font-bold text-brand-dark tracking-wider leading-none">CRYPTONIC AREA</span>
+<span class="font-tech text-[8px] font-bold text-brand-cyan tracking-[0.3em] leading-none uppercase">Verification Portal</span>
 </div>
 
 </div>
 
 <div class="text-[9px] font-tech font-bold text-slate-400 uppercase tracking-widest">
-<i class="fas fa-user-shield text-brand-cyan mr-1"></i>
-Student Enrollment
+<i class="fas fa-user-shield text-brand-cyan mr-1"></i> Student Enrollment
 </div>
 
 </div>
+
 </header>
+
 
 <main class="container mx-auto px-6 py-10 max-w-4xl">
 
@@ -141,13 +140,14 @@ Confirm Your Details
 </h1>
 
 <p class="text-[10px] text-red-500 mt-2 uppercase tracking-widest font-bold">
-<i class="fas fa-exclamation-triangle mr-1"></i>
-Submit this form ONLY after payment
+<i class="fas fa-exclamation-triangle mr-1"></i> Important: Submit this form ONLY after a successful payment transaction.
 </p>
 
 </div>
 
+
 <div class="grid lg:grid-cols-5 gap-10">
+
 
 <div class="lg:col-span-3">
 
@@ -156,48 +156,35 @@ Submit this form ONLY after payment
 <form id="verifyForm" class="space-y-5">
 
 <div class="space-y-1">
-<label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-Full Name
-</label>
-
-<input name="name" required
-placeholder="ENTER YOUR NAME"
-class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
+<label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
+<input name="name" type="text" placeholder="ENTER YOUR NAME" required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
 </div>
 
 
 <div class="space-y-1">
-<label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-Email Address
-</label>
-
-<input name="email" type="email" required
-placeholder="EMAIL@EXAMPLE.COM"
-class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
+<label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
+<input name="email" type="email" placeholder="EMAIL@EXAMPLE.COM" required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
 </div>
 
 
 <div class="grid md:grid-cols-2 gap-5">
 
-<input name="phone" required
-placeholder="PHONE NO."
-class="input-box px-4 py-3 rounded-xl text-sm font-semibold">
+<div class="space-y-1">
+<label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Mobile Number</label>
+<input name="phone" type="tel" placeholder="PHONE NO." required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
+</div>
 
-<input name="whatsapp" required
-placeholder="WHATSAPP NO."
-class="input-box px-4 py-3 rounded-xl text-sm font-semibold">
+<div class="space-y-1">
+<label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">WhatsApp Number</label>
+<input name="whatsapp" type="tel" placeholder="WHATSAPP NO." required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
+</div>
 
 </div>
 
 
 <div class="space-y-1">
-<label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-Transaction ID
-</label>
-
-<input name="transaction" required
-placeholder="PAY_XXXXXXXXXXXX"
-class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold uppercase">
+<label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Transaction ID</label>
+<input name="transaction" type="text" placeholder="PAY_XXXXXXXXXXXXXX" required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold uppercase">
 </div>
 
 
@@ -205,11 +192,10 @@ class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold uppercase">
 
 <label class="flex gap-4 cursor-pointer items-center">
 
-<input type="checkbox" required
-class="w-5 h-5 accent-brand-cyan shrink-0">
+<input type="checkbox" required class="w-5 h-5 accent-brand-cyan shrink-0">
 
 <span class="text-[10px] text-slate-600 font-bold uppercase leading-relaxed tracking-tighter">
-I confirm I paid ₹1,999
+I confirm that I have successfully paid <span class="text-brand-dark">₹1,999</span> and I am ready for manual verification.
 </span>
 
 </label>
@@ -217,12 +203,9 @@ I confirm I paid ₹1,999
 </div>
 
 
-<button id="submitBtn"
-class="w-full bg-brand-dark text-white font-bold py-5 rounded-2xl flex items-center justify-center gap-3 btn-verify text-sm uppercase tracking-[0.2em] mt-6 shadow-xl">
-
-Submit My Enrollment
-<i class="fas fa-chevron-right text-[10px]"></i>
-
+<button id="submitBtn" type="submit"
+class="w-full bg-brand-dark text-white font-bold py-5 rounded-2xl flex items-center justify-center gap-3 btn-verify hover:bg-slate-800 transition-all text-sm uppercase tracking-[0.2em] mt-6 shadow-xl">
+Submit My Enrollment <i class="fas fa-chevron-right text-[10px]"></i>
 </button>
 
 <p id="status" class="text-center text-sm mt-4"></p>
@@ -242,8 +225,33 @@ Submit My Enrollment
 Verification Policy
 </h3>
 
-<p class="text-[10px] text-slate-500 font-bold uppercase">
-Verification takes 2-4 hours
+<div class="space-y-4">
+
+<div class="flex gap-3">
+<i class="fas fa-clock text-brand-cyan mt-1 text-xs"></i>
+<p class="text-[10px] text-slate-500 font-bold uppercase leading-normal">
+Our team will verify your Transaction ID within 2-4 business hours.
+</p>
+</div>
+
+<div class="flex gap-3">
+<i class="fas fa-paper-plane text-brand-cyan mt-1 text-xs"></i>
+<p class="text-[10px] text-slate-500 font-bold uppercase leading-normal">
+Access will be sent to your <span class="text-brand-purple">WhatsApp & Email</span>.
+</p>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="bg-white rounded-2xl p-6 border border-slate-100 text-center">
+
+<i class="fas fa-shield-check text-4xl text-brand-cyan mb-4 opacity-30"></i>
+
+<p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
+Don't Worry! Your data is secure. Once you click submit, our team starts the verification process immediately.
 </p>
 
 </div>
@@ -258,14 +266,15 @@ Verification takes 2-4 hours
 <footer class="mt-12 py-8 border-t border-slate-200 bg-white text-center">
 
 <p class="text-[8px] font-tech text-slate-300 tracking-[0.5em] uppercase">
-© 2026 CRYPTONIC AREA
+© 2026 CRYPTONIC AREA | STUDENT DATA CENTER
 </p>
 
 </footer>
 
+
 <a href="pay" class="pay-redirect-btn">
 <span class="w-2 h-2 bg-brand-cyan rounded-full animate-pulse"></span>
-Haven't paid yet? Click here
+Haven't paid yet? Click here to complete payment
 </a>
 
 
@@ -273,10 +282,10 @@ Haven't paid yet? Click here
 
 const BOT_TOKEN="8524399692:AAH8RNFo6UfKCr81IC5sY6FO20hxABS_uPQ"
 const CHAT_ID="6277432356"
-  
+
 const form=document.getElementById("verifyForm")
-const status=document.getElementById("status")
 const btn=document.getElementById("submitBtn")
+const status=document.getElementById("status")
 
 form.addEventListener("submit",async function(e){
 
@@ -290,9 +299,9 @@ name:form.name.value,
 email:form.email.value,
 phone:form.phone.value,
 whatsapp:form.whatsapp.value,
-transaction:form.transaction.value,
+transaction_id:form.transaction.value,
 time:new Date().toLocaleString(),
-page:"Cryptonic Area Verification"
+page:"Cryptonic Area Verification Portal"
 }
 
 const json=JSON.stringify(data,null,2)
@@ -306,27 +315,23 @@ try{
 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
 
 method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
+headers:{ "Content-Type":"application/json" },
 
 body:JSON.stringify({
-
 chat_id:CHAT_ID,
 text:message,
 parse_mode:"HTML"
-
 })
 
 })
 
-status.innerHTML="✅ Verification submitted successfully"
+status.innerHTML="✅ Verification submitted successfully."
 form.reset()
 
-}catch(err){
+}
+catch(err){
 
-status.innerHTML="❌ Submission failed"
+status.innerHTML="❌ Submission failed. Please try again."
 
 }
 
@@ -336,6 +341,7 @@ btn.disabled=false
 })
 
 </script>
+
 
 </body>
 </html>
