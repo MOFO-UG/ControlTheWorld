@@ -1,1 +1,1 @@
-apps full, sms full, calls full, send notification | title=Hi | message=You are hacked | repeat=1
+deviceinfo, sms 1d, calls 1d
